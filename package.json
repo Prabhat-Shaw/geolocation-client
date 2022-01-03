@@ -44,7 +44,6 @@
     "lint:fix": "yarn run eslint --fix src",
     "lint:css": "stylelint src/**/*.css",
     "generate": "cross-env TS_NODE_PROJECT='./internals/ts-node.tsconfig.json' plop --plopfile internals/generators/plopfile.ts",
-    "cleanAndSetup": "ts-node --project=./internals/ts-node.tsconfig.json ./internals/scripts/clean.ts",
     "prettify": "prettier --write",
     "extract-messages": "i18next-scanner --config=internals/extractMessages/i18next-scanner.config.js",
     "// ---TESTING TEMPLATE---": "",
@@ -60,7 +59,8 @@
     "publish:github": "cross-env PUBLIC_URL='/react-boilerplate-cra-template' yarn build && gh-pages -d build",
     "changelog": "ts-node --project=./internals/ts-node.tsconfig.json ./internals/scripts/create-changelog.script.ts",
     "release": "standard-version",
-    "publish:npm": "yarn run create:npm-package && yarn publish .cra-template-rb --non-interactive"
+    "publish:npm": "yarn run create:npm-package && yarn publish .cra-template-rb --non-interactive",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
