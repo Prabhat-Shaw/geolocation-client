@@ -21,3 +21,8 @@ generated-cra-app
 .cra-template-rb
 template
 .eslintcache
+
+docs
+.husky
+.vscode
+.gitbook.yaml
