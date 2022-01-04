@@ -7,10 +7,7 @@ function* login(action) {
   const requestURL = `http://localhost:9000/api/Authentication/login`;
   const requestParameters = {
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify({
       email_address: action.payload.emailAddress,
       password: action.payload.password,

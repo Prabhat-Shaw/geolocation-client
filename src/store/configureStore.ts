@@ -39,7 +39,7 @@ export function configureAppStore() {
     enhancers,
   });
 
-  let persistor = persistStore(store);
+  const persistor = persistStore(store);
 
   return { store, persistor };
 }
