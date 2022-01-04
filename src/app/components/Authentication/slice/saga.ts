@@ -18,7 +18,10 @@ function* login(action) {
   };
 
   try {
-    const user: User = yield call(request, requestURL, requestParameters);
+    const user: User = yield call(request, requestURL, {
+      ...requestParameters,
+      credentials: 'include',
+    });
 
     yield put(actions.loginSuccess(user));
   } catch (error) {
@@ -27,8 +30,6 @@ function* login(action) {
 }
 
 function* registration(action) {
-  console.log(action);
-
   const requestURL = `http://localhost:9000/api/Authentication/registration`;
   const requestParameters = {
     method: 'POST',
@@ -51,7 +52,26 @@ function* registration(action) {
   }
 }
 
+function* logout() {
+  const requestURL = `http://localhost:9000/api/Authentication/logout`;
+  const requestParameters = {
+    method: 'GET',
+  };
+
+  try {
+    yield call(request, requestURL, {
+      ...requestParameters,
+      credentials: 'include',
+    });
+
+    yield put(actions.logoutSuccess());
+  } catch (error) {
+    yield put(actions.logoutFailture('error'));
+  }
+}
+
 export function* authenticationSaga() {
   yield takeLatest(actions.loginRequest.type, login);
   yield takeLatest(actions.registrationRequest.type, registration);
+  yield takeLatest(actions.logoutRequest.type, logout);
 }
