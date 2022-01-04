@@ -1,6 +1,7 @@
-import * as React from 'react';
 import { render } from '@testing-library/react';
-
+import * as React from 'react';
+import { Provider } from 'react-redux';
+import { configureAppStore } from 'store/configureStore';
 import { LoginPage } from '..';
 
 jest.mock('react-i18next', () => ({
@@ -16,7 +17,13 @@ jest.mock('react-i18next', () => ({
 
 describe('<LoginPage  />', () => {
   it('should match snapshot', () => {
-    const loadingIndicator = render(<LoginPage />);
+    const store = configureAppStore();
+
+    const loadingIndicator = render(
+      <Provider store={store}>
+        <LoginPage />
+      </Provider>,
+    );
     expect(loadingIndicator.container.firstChild).toMatchSnapshot();
   });
 });
