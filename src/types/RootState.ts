@@ -1,5 +1,5 @@
-import { LoginPageState } from 'app/pages/LoginPage/slice/types';
-import { RegistrationPageState } from 'app/pages/RegistrationPage/slice/types';
+import { LoginFormState } from 'app/pages/LoginPage/LoginForm/slice/types';
+import { RegistrationFormState } from 'app/pages/RegistrationPage/RegistrationForm/slice/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
 /* 
@@ -7,7 +7,7 @@ import { RegistrationPageState } from 'app/pages/RegistrationPage/slice/types';
   You have to declare them here manually
 */
 export interface RootState {
-  loginPage?: LoginPageState;
-  registrationPage?: RegistrationPageState;
+  loginForm?: LoginFormState;
+  registrationForm?: RegistrationFormState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

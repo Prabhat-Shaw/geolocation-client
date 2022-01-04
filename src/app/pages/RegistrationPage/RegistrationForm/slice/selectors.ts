@@ -1,12 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit';
-
 import { RootState } from 'types';
 import { initialState } from '.';
 
 const selectSlice = (state: RootState) =>
-  state.registrationPage || initialState;
+  state.registrationForm || initialState;
 
-export const selectRegistrationPage = createSelector(
+export const selectRegistrationForm = createSelector(
   [selectSlice],
   state => state,
 );

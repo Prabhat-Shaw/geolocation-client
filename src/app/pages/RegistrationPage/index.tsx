@@ -6,6 +6,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
+import { RegistrationForm } from './RegistrationForm';
 
 interface Props {}
 
@@ -16,6 +17,9 @@ export function RegistrationPage(props: Props) {
   return (
     <Div>
       {t('')}
+
+      <RegistrationForm />
+
       {/*  {t(...messages.someThing())}  */}
     </Div>
   );
