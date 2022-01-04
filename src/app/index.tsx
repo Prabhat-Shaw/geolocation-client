@@ -12,9 +12,9 @@ import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { GlobalStyle } from 'styles/global-styles';
 import { useInjectSaga } from 'utils/redux-injectors';
-import { AuthGuard } from './components/Authentication';
+import { AuthenticationGuard } from './components/Authentication';
 import { authenticationSaga } from './components/Authentication/slice/saga';
-import { HomePage } from './pages/HomePage/Loadable';
+import { GeolocationPage } from './pages/GeolocationPage/Loadable';
 import { LoginPage } from './pages/LoginPage/Loadable';
 import { NotFoundPage } from './pages/NotFoundPage/Loadable';
 import { RegistrationPage } from './pages/RegistrationPage/Loadable';
@@ -34,12 +34,12 @@ export function App() {
       </Helmet>
 
       <Switch>
-        <AuthGuard>
-          <Route exact path="/" component={HomePage} />
-        </AuthGuard>
-
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/registration" component={RegistrationPage} />
+
+        <AuthenticationGuard>
+          <Route exact path="/" component={GeolocationPage} />
+        </AuthenticationGuard>
 
         <Route component={NotFoundPage} />
       </Switch>

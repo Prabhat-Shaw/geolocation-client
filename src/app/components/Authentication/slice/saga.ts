@@ -21,8 +21,8 @@ function* login(action) {
     const user: User = yield call(request, requestURL, requestParameters);
 
     yield put(actions.loginSuccess(user));
-  } catch ({ response }) {
-    yield put(actions.loginFailture(response));
+  } catch (error) {
+    yield put(actions.loginFailture('test'));
   }
 }
 
@@ -46,8 +46,8 @@ function* registration(action) {
     yield call(request, requestURL, requestParameters);
 
     yield put(actions.registrationSuccess());
-  } catch ({ response }) {
-    yield put(actions.registrationFailture(response));
+  } catch (error) {
+    yield put(actions.registrationFailture('error'));
   }
 }
 

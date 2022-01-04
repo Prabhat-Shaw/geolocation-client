@@ -8,8 +8,8 @@ import {
   StoreEnhancer,
 } from '@reduxjs/toolkit';
 import { createInjectorsEnhancer } from 'redux-injectors';
+import { persistStore } from 'redux-persist';
 import createSagaMiddleware from 'redux-saga';
-
 import { createReducer } from './reducers';
 
 export function configureAppStore() {
@@ -34,5 +34,7 @@ export function configureAppStore() {
     enhancers,
   });
 
-  return store;
+  let persistor = persistStore(store);
+
+  return { store, persistor };
 }

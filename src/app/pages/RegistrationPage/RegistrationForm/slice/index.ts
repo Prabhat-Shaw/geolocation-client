@@ -37,7 +37,8 @@ const slice = createSlice({
   },
 });
 
-export const { actions: loginFormActions } = slice;
+export const { actions: registerFormActions, reducer: registerFormReducer } =
+  slice;
 
 export const useRegistrationFormSlice = () => {
   useInjectReducer({ key: slice.name, reducer: slice.reducer });

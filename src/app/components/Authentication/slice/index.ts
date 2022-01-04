@@ -16,7 +16,7 @@ const slice = createSlice({
   reducers: {
     registrationRequest(state, action: PayloadAction<any>) {},
     registrationSuccess(state) {},
-    registrationFailture(state, action: PayloadAction<Exception | any>) {},
+    registrationFailture(state, action?: PayloadAction<Exception | any>) {},
 
     loginRequest(state, action: PayloadAction<any>) {},
     loginSuccess(state, action: PayloadAction<User>) {
