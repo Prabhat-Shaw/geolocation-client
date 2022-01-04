@@ -3,13 +3,13 @@
  * LoginForm
  *
  */
+import { useAuthenticationSlice } from 'app/components/Authentication/slice';
 import { LoadingIndicator } from 'app/components/LoadingIndicator';
 import * as React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import { useLoginFormSlice } from './slice';
 import { selectLoginForm } from './slice/selectors';
 
 interface Props {}
@@ -20,7 +20,7 @@ type Inputs = {
 };
 
 export function LoginForm(props: Props) {
-  const { actions } = useLoginFormSlice();
+  const { actions } = useAuthenticationSlice();
   const {
     register,
     handleSubmit,

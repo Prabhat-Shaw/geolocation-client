@@ -3,13 +3,13 @@
  * RegistrationForm
  *
  */
+import { useAuthenticationSlice } from 'app/components/Authentication/slice';
 import { LoadingIndicator } from 'app/components/LoadingIndicator';
 import * as React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import { useRegistrationFormSlice } from './slice';
 import { selectRegistrationForm } from './slice/selectors';
 
 interface Props {}
@@ -20,7 +20,7 @@ type Inputs = {
 };
 
 export function RegistrationForm(props: Props) {
-  const { actions } = useRegistrationFormSlice();
+  const { actions } = useAuthenticationSlice();
   const {
     register,
     handleSubmit,

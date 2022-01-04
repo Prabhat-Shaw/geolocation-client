@@ -1,9 +1,9 @@
 import { PayloadAction } from '@reduxjs/toolkit';
+import { authenticationActions } from 'app/components/Authentication/slice';
 import { Exception } from 'types/Exception';
 import { User } from 'types/User';
 import { createSlice } from 'utils/@reduxjs/toolkit';
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-import { loginFormSaga } from './saga';
+import { useInjectReducer } from 'utils/redux-injectors';
 import { LoginFormState } from './types';
 
 export const initialState: LoginFormState = {
@@ -14,16 +14,25 @@ export const initialState: LoginFormState = {
 const slice = createSlice({
   name: 'loginForm',
   initialState,
-  reducers: {
-    loginRequest(state, action: PayloadAction<any>) {
+  reducers: {},
+  extraReducers: {
+    [authenticationActions.loginRequest.type]: (
+      state,
+      action: PayloadAction<any>,
+    ) => {
       state.isLoading = true;
     },
-    loginSuccess(state, action: PayloadAction<User>) {
+    [authenticationActions.loginSuccess.type]: (
+      state,
+      action: PayloadAction<User>,
+    ) => {
       state.isLoading = false;
     },
-    loginFailture(state, action: PayloadAction<Exception | any>) {
+    [authenticationActions.loginFailture.type]: (
+      state,
+      action: PayloadAction<Exception | any>,
+    ) => {
       state.isLoading = false;
-      state.error = action.payload;
     },
   },
 });
@@ -32,18 +41,5 @@ export const { actions: loginFormActions } = slice;
 
 export const useLoginFormSlice = () => {
   useInjectReducer({ key: slice.name, reducer: slice.reducer });
-  useInjectSaga({ key: slice.name, saga: loginFormSaga });
   return { actions: slice.actions };
 };
-
-/**
- * Example Usage:
- *
- * export function MyComponentNeedingThisSlice() {
- *  const { actions } = useLoginFormSlice();
- *
- *  const onButtonClick = (evt) => {
- *    dispatch(actions.someAction());
- *   };
- * }
- */

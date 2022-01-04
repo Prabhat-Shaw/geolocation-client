@@ -1,3 +1,4 @@
+import { AuthenticationState } from 'app/components/Authentication/slice/types';
 import { LoginFormState } from 'app/pages/LoginPage/LoginForm/slice/types';
 import { RegistrationFormState } from 'app/pages/RegistrationPage/RegistrationForm/slice/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
@@ -9,5 +10,6 @@ import { RegistrationFormState } from 'app/pages/RegistrationPage/RegistrationFo
 export interface RootState {
   loginForm?: LoginFormState;
   registrationForm?: RegistrationFormState;
+  authentication?: AuthenticationState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

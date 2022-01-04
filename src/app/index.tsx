@@ -11,13 +11,18 @@ import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { GlobalStyle } from 'styles/global-styles';
-import { NotFoundPage } from './components/NotFoundPage/Loadable';
+import { useInjectSaga } from 'utils/redux-injectors';
+import { AuthGuard } from './components/Authentication';
+import { authenticationSaga } from './components/Authentication/slice/saga';
 import { HomePage } from './pages/HomePage/Loadable';
 import { LoginPage } from './pages/LoginPage/Loadable';
+import { NotFoundPage } from './pages/NotFoundPage/Loadable';
 import { RegistrationPage } from './pages/RegistrationPage/Loadable';
 
 export function App() {
   const { i18n } = useTranslation();
+  useInjectSaga({ key: 'authentication', saga: authenticationSaga });
+
   return (
     <BrowserRouter>
       <Helmet
@@ -29,7 +34,10 @@ export function App() {
       </Helmet>
 
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <AuthGuard>
+          <Route exact path="/" component={HomePage} />
+        </AuthGuard>
+
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/registration" component={RegistrationPage} />
 
