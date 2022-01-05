@@ -26,28 +26,39 @@ const slice = createSlice({
   name: 'geolocation',
   initialState,
   reducers: {
-    getGeolocationsRequestAction(state, action: PayloadAction<any>) {},
+    getGeolocationsRequestAction(state) {
+      state.isLoading = true;
+    },
     getGeolocationsSuccessAction(
       state,
       action: PayloadAction<Pagination<Geolocation>>,
     ) {
+      state.isLoading = false;
       state.geolocations = action.payload;
     },
-    getGeolocationsFailtureAction(state, action: PayloadAction<any>) {},
+    getGeolocationsFailtureAction(state, action: PayloadAction<any>) {
+      state.isLoading = false;
+    },
 
-    createGeolocationRequestAction(state, action: PayloadAction<any>) {},
-    createGeolocationSuccessAction(
-      state,
-      action: PayloadAction<Geolocation>,
-    ) {},
-    createGeolocationFailtureAction(state, action: PayloadAction<any>) {},
+    createGeolocationRequestAction(state, action: PayloadAction<any>) {
+      state.isLoading = true;
+    },
+    createGeolocationSuccessAction(state, action: PayloadAction<Geolocation>) {
+      state.isLoading = false;
+    },
+    createGeolocationFailtureAction(state, action: PayloadAction<any>) {
+      state.isLoading = false;
+    },
 
-    removeGeolocationRequestAction(state, action: PayloadAction<any>) {},
-    removeGeolocationSuccessAction(
-      state,
-      action: PayloadAction<Geolocation>,
-    ) {},
-    removeGeolocationFailtureAction(state, action: PayloadAction<any>) {},
+    removeGeolocationRequestAction(state, action: PayloadAction<any>) {
+      state.isLoading = true;
+    },
+    removeGeolocationSuccessAction(state, action: PayloadAction<Geolocation>) {
+      state.isLoading = false;
+    },
+    removeGeolocationFailtureAction(state, action: PayloadAction<any>) {
+      state.isLoading = false;
+    },
   },
 });
 

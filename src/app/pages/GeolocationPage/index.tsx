@@ -3,19 +3,30 @@
  * GeolocationPage
  *
  */
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { messages } from './messages';
+import { useDispatch } from 'react-redux';
+import { useGeolocationSlice } from './slice';
 
 interface Props {}
 
 export function GeolocationPage(props: Props) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { actions } = useGeolocationSlice();
   const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
+
+  const useEffectOnMount = (effect: React.EffectCallback) => {
+    useEffect(effect, []);
+  };
+
+  useEffectOnMount(() => {
+    dispatch(actions.getGeolocationsRequestAction());
+  });
 
   return (
     <div>
       {t('')}
+      test
       {/*  {t(...messages.someThing())}  */}
     </div>
   );

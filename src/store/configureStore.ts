@@ -30,9 +30,7 @@ export function configureAppStore() {
   const store = configureStore({
     reducer: createReducer(),
     middleware: [
-      ...getDefaultMiddleware({
-        serializableCheck: { ignoredActions: ['persist/PERSIST'] },
-      }),
+      ...getDefaultMiddleware({ serializableCheck: false }),
       ...middlewares,
     ],
     devTools: process.env.NODE_ENV !== 'production',

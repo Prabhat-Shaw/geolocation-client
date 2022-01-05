@@ -9,6 +9,7 @@ import * as React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { selectLoginForm } from './slice/selectors';
 
@@ -29,9 +30,10 @@ export function LoginForm(props: Props) {
   } = useForm<Inputs>();
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
+  const history = useHistory();
 
   const onSubmit: SubmitHandler<Inputs> = data =>
-    dispatch(actions.loginRequestAction(data));
+    dispatch(actions.loginRequestAction({ ...data, history }));
   const { isLoading } = useSelector(selectLoginForm);
 
   return (

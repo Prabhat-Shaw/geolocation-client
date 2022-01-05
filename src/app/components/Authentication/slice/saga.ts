@@ -4,6 +4,8 @@ import { request } from 'utils/request';
 import { authenticationActions as actions } from '.';
 
 function* login(action) {
+  console.log(action);
+
   const requestURL = `http://localhost:9000/api/Authentication/login`;
   const requestParameters = {
     method: 'POST',
@@ -21,6 +23,7 @@ function* login(action) {
     });
 
     yield put(actions.loginSuccessAction(user));
+    action.payload.history.push('/');
   } catch (error) {
     yield put(actions.loginFailtureAction('test'));
   }
@@ -49,7 +52,7 @@ function* registration(action) {
   }
 }
 
-function* logout() {
+function* logout(action) {
   const requestURL = `http://localhost:9000/api/Authentication/logout`;
   const requestParameters = {
     method: 'GET',
@@ -62,6 +65,7 @@ function* logout() {
     });
 
     yield put(actions.logoutSuccessAction());
+    action.payload.history.push('/login');
   } catch (error) {
     yield put(actions.logoutFailtureAction('error'));
   }
