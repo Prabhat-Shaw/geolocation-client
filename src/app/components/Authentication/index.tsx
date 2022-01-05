@@ -1,25 +1,15 @@
 import { useSelector } from 'react-redux';
-import { Redirect, Route } from 'react-router-dom';
-import { selectAuthentication } from './slice/selectors';
+import { Redirect } from 'react-router-dom';
+import { RootState } from 'types';
 
-export function AuthenticationGuard({ children, ...rest }) {
-  const { isAuthenticated } = useSelector(selectAuthentication);
-
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        isAuthenticated ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/login',
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
+export function AuthenticationGuard({ children }) {
+  const isAuthenticated = useSelector(
+    (store: RootState) => store.authentication?.isAuthenticated,
   );
+
+  if (isAuthenticated) {
+    return children;
+  } else {
+    return <Redirect to="/login" />;
+  }
 }

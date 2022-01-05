@@ -1,7 +1,8 @@
 import { AuthenticationState } from 'app/components/Authentication/slice/types';
+import { GeolocationListState } from 'app/pages/GeolocationPage/GeolocationList/slice/types';
 import { LoginFormState } from 'app/pages/LoginPage/LoginForm/slice/types';
 import { RegistrationFormState } from 'app/pages/RegistrationPage/RegistrationForm/slice/types';
-import { GeolocationState } from 'app/pages/GeolocationPage/slice/types';
+import { GeolocationFormState } from 'app/pages/GeolocationPage/GeolocationForm/slice/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
 /* 
@@ -12,6 +13,7 @@ export interface RootState {
   loginForm?: LoginFormState;
   registrationForm?: RegistrationFormState;
   authentication?: AuthenticationState;
-  geolocation?: GeolocationState;
+  geolocationList?: GeolocationListState;
+  geolocationForm?: GeolocationFormState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

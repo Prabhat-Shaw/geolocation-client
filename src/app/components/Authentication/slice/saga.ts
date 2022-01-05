@@ -1,19 +1,16 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { User } from 'types/User';
+import { API_URL } from 'utils/endpoint';
 import { request } from 'utils/request';
 import { authenticationActions as actions } from '.';
 
 function* login(action) {
-  console.log(action);
-
-  const requestURL = `http://localhost:9000/api/Authentication/login`;
+  const { emailAddress: email_address, password, history } = action.payload;
+  const requestURL = `${API_URL}/Authentication/login`;
   const requestParameters = {
     method: 'POST',
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      email_address: action.payload.emailAddress,
-      password: action.payload.password,
-    }),
+    body: JSON.stringify({ email_address, password }),
   };
 
   try {
@@ -23,24 +20,22 @@ function* login(action) {
     });
 
     yield put(actions.loginSuccessAction(user));
-    action.payload.history.push('/');
+    history.push('/');
   } catch (error) {
     yield put(actions.loginFailtureAction('test'));
   }
 }
 
 function* registration(action) {
-  const requestURL = `http://localhost:9000/api/Authentication/registration`;
+  const { emailAddress: email_address, password } = action.payload;
+  const requestURL = `${API_URL}/Authentication/registration`;
   const requestParameters = {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      email_address: action.payload.emailAddress,
-      password: action.payload.password,
-    }),
+    body: JSON.stringify({ email_address, password }),
   };
 
   try {
@@ -53,7 +48,8 @@ function* registration(action) {
 }
 
 function* logout(action) {
-  const requestURL = `http://localhost:9000/api/Authentication/logout`;
+  const { history } = action.payload;
+  const requestURL = `${API_URL}/Authentication/logout`;
   const requestParameters = {
     method: 'GET',
   };
@@ -65,7 +61,7 @@ function* logout(action) {
     });
 
     yield put(actions.logoutSuccessAction());
-    action.payload.history.push('/login');
+    history.push('/login');
   } catch (error) {
     yield put(actions.logoutFailtureAction('error'));
   }

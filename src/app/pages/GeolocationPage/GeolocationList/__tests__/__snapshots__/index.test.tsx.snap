@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GeolocationList  /> should match snapshot 1`] = `
+<div
+  class="GeolocationList__Div-sc-8xxu89-0"
+/>
+`;
