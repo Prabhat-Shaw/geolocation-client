@@ -20,9 +20,9 @@ function* login(action) {
       credentials: 'include',
     });
 
-    yield put(actions.loginSuccess(user));
+    yield put(actions.loginSuccessAction(user));
   } catch (error) {
-    yield put(actions.loginFailture('test'));
+    yield put(actions.loginFailtureAction('test'));
   }
 }
 
@@ -43,9 +43,9 @@ function* registration(action) {
   try {
     yield call(request, requestURL, requestParameters);
 
-    yield put(actions.registrationSuccess());
+    yield put(actions.registrationSuccessAction());
   } catch (error) {
-    yield put(actions.registrationFailture('error'));
+    yield put(actions.registrationFailtureAction('error'));
   }
 }
 
@@ -61,14 +61,14 @@ function* logout() {
       credentials: 'include',
     });
 
-    yield put(actions.logoutSuccess());
+    yield put(actions.logoutSuccessAction());
   } catch (error) {
-    yield put(actions.logoutFailture('error'));
+    yield put(actions.logoutFailtureAction('error'));
   }
 }
 
 export function* authenticationSaga() {
-  yield takeLatest(actions.loginRequest.type, login);
-  yield takeLatest(actions.registrationRequest.type, registration);
-  yield takeLatest(actions.logoutRequest.type, logout);
+  yield takeLatest(actions.loginRequestAction.type, login);
+  yield takeLatest(actions.registrationRequestAction.type, registration);
+  yield takeLatest(actions.logoutRequestAction.type, logout);
 }

@@ -31,7 +31,7 @@ export function RegistrationForm(props: Props) {
   const { t, i18n } = useTranslation();
 
   const onSubmit: SubmitHandler<Inputs> = data =>
-    dispatch(actions.registrationRequest(data));
+    dispatch(actions.registrationRequestAction(data));
   const { isLoading } = useSelector(selectRegistrationForm);
 
   return (

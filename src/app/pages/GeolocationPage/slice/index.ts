@@ -1,5 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Geolocation } from 'types/Geolocation';
+import { Pagination } from 'types/Pagination';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { geolocationSaga } from './saga';
@@ -25,6 +26,15 @@ const slice = createSlice({
   name: 'geolocation',
   initialState,
   reducers: {
+    getGeolocationsRequestAction(state, action: PayloadAction<any>) {},
+    getGeolocationsSuccessAction(
+      state,
+      action: PayloadAction<Pagination<Geolocation>>,
+    ) {
+      state.geolocations = action.payload;
+    },
+    getGeolocationsFailtureAction(state, action: PayloadAction<any>) {},
+
     createGeolocationRequestAction(state, action: PayloadAction<any>) {},
     createGeolocationSuccessAction(
       state,

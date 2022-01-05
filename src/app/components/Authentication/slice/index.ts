@@ -14,23 +14,26 @@ const slice = createSlice({
   name: 'authentication',
   initialState,
   reducers: {
-    registrationRequest(state, action: PayloadAction<any>) {},
-    registrationSuccess(state) {},
-    registrationFailture(state, action?: PayloadAction<Exception | any>) {},
+    registrationRequestAction(state, action: PayloadAction<any>) {},
+    registrationSuccessAction(state) {},
+    registrationFailtureAction(
+      state,
+      action?: PayloadAction<Exception | any>,
+    ) {},
 
-    loginRequest(state, action: PayloadAction<any>) {},
-    loginSuccess(state, action: PayloadAction<User>) {
+    loginRequestAction(state, action: PayloadAction<any>) {},
+    loginSuccessAction(state, action: PayloadAction<User>) {
       state.isAuthenticated = true;
       state.user = action.payload;
     },
-    loginFailture(state, action: PayloadAction<Exception | any>) {},
+    loginFailtureAction(state, action: PayloadAction<Exception | any>) {},
 
-    logoutRequest(state) {},
-    logoutSuccess(state) {
+    logoutRequestAction(state) {},
+    logoutSuccessAction(state) {
       state.isAuthenticated = false;
       state.user = null;
     },
-    logoutFailture(state, action: PayloadAction<Exception | any>) {},
+    logoutFailtureAction(state, action: PayloadAction<Exception | any>) {},
   },
 });
 

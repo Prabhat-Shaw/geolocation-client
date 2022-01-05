@@ -31,7 +31,7 @@ export function LoginForm(props: Props) {
   const { t, i18n } = useTranslation();
 
   const onSubmit: SubmitHandler<Inputs> = data =>
-    dispatch(actions.loginRequest(data));
+    dispatch(actions.loginRequestAction(data));
   const { isLoading } = useSelector(selectLoginForm);
 
   return (

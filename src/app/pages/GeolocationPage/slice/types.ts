@@ -1,4 +1,5 @@
 import { Exception } from 'types/Exception';
+import { Geolocation } from 'types/Geolocation';
 import { Pagination } from 'types/Pagination';
 
 /* --- STATE --- */

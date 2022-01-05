@@ -16,19 +16,19 @@ const slice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [authenticationActions.registrationRequest.type]: (
+    [authenticationActions.registrationRequestAction.type]: (
       state,
       action: PayloadAction<any>,
     ) => {
       state.isLoading = true;
     },
-    [authenticationActions.registrationSuccess.type]: (
+    [authenticationActions.registrationSuccessAction.type]: (
       state,
       action: PayloadAction<User>,
     ) => {
       state.isLoading = false;
     },
-    [authenticationActions.registrationFailture.type]: (
+    [authenticationActions.registrationFailtureAction.type]: (
       state,
       action: PayloadAction<Exception | any>,
     ) => {

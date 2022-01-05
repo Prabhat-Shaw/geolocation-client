@@ -1,7 +1,28 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { Geolocation } from 'types/Geolocation';
+import { Pagination } from 'types/Pagination';
 import { request } from 'utils/request';
 import { geolocationActions as actions } from '.';
+
+function* getGeolocations(action) {
+  const requestURL = `http://localhost:9000/api/Geolocation/`;
+  const requestParameters = { method: 'GET' };
+
+  try {
+    const geolocations: Pagination<Geolocation> = yield call(
+      request,
+      requestURL,
+      {
+        ...requestParameters,
+        credentials: 'include',
+      },
+    );
+
+    yield put(actions.getGeolocationsSuccessAction(geolocations));
+  } catch (error) {
+    yield put(actions.getGeolocationsFailtureAction('test'));
+  }
+}
 
 function* createGeolocation(action) {
   const requestURL = `http://localhost:9000/api/Geolocation`;
@@ -40,6 +61,7 @@ function* removeGeolocation(action) {
 }
 
 export function* geolocationSaga() {
+  yield takeLatest(actions.getGeolocationsRequestAction.type, getGeolocations);
   yield takeLatest(
     actions.createGeolocationRequestAction.type,
     createGeolocation,
