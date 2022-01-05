@@ -28,7 +28,7 @@ const slice = createSlice({
     },
     loginFailtureAction(state, action: PayloadAction<Exception | any>) {},
 
-    logoutRequestAction(state) {},
+    logoutRequestAction(state, action: PayloadAction<any>) {},
     logoutSuccessAction(state) {
       state.isAuthenticated = false;
       state.user = null;

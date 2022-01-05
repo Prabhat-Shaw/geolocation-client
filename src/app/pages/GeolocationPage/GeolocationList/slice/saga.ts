@@ -3,11 +3,12 @@ import { Geolocation } from 'types/Geolocation';
 import { Pagination } from 'types/Pagination';
 import { API_URL } from 'utils/endpoint';
 import { request } from 'utils/request';
-import { geolocationListActions } from '.';
-import { geolocationFormActions } from '../../GeolocationForm/slice';
+import { geolocationListActions as actions } from '.';
 
-function* getGeolocations(action) {
-  const requestURL = `${API_URL}/Geolocation`;
+function* getGeolocations({
+  payload: { page },
+}: ReturnType<typeof actions.getGeolocationsRequestAction>) {
+  const requestURL = `${API_URL}/Geolocation?page=${page}`;
   const requestParameters = { method: 'GET' };
 
   try {
@@ -17,16 +18,15 @@ function* getGeolocations(action) {
       { ...requestParameters, credentials: 'include' },
     );
 
-    yield put(
-      geolocationListActions.getGeolocationsSuccessAction(geolocations),
-    );
+    yield put(actions.getGeolocationsSuccessAction(geolocations));
   } catch (error) {
-    yield put(geolocationListActions.getGeolocationsFailtureAction('test'));
+    yield put(actions.getGeolocationsFailtureAction('test'));
   }
 }
 
-function* removeGeolocation(action) {
-  const { uuid } = action.payload;
+function* removeGeolocation({
+  payload: { uuid },
+}: ReturnType<typeof actions.removeGeolocationRequestAction>) {
   const requestURL = `${API_URL}/Geolocation/${uuid}`;
   const requestParameters = { method: 'DELETE' };
 
@@ -36,25 +36,16 @@ function* removeGeolocation(action) {
       credentials: 'include',
     });
 
-    yield put(
-      geolocationListActions.removeGeolocationSuccessAction(geolocation),
-    );
+    yield put(actions.removeGeolocationSuccessAction(geolocation));
   } catch (error) {
-    yield put(geolocationListActions.removeGeolocationFailtureAction('test'));
+    yield put(actions.removeGeolocationFailtureAction('test'));
   }
 }
 
 export function* geolocationListSaga() {
+  yield takeLatest(actions.getGeolocationsRequestAction.type, getGeolocations);
   yield takeLatest(
-    [
-      geolocationListActions.getGeolocationsRequestAction.type,
-      geolocationListActions.removeGeolocationSuccessAction.type,
-      geolocationFormActions.createGeolocationSuccessAction.type,
-    ],
-    getGeolocations,
-  );
-  yield takeLatest(
-    geolocationListActions.removeGeolocationRequestAction.type,
+    actions.removeGeolocationRequestAction.type,
     removeGeolocation,
   );
 }

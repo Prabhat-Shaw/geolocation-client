@@ -1,9 +1,11 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { API_URL } from 'utils/endpoint';
 import { request } from 'utils/request';
 import { geolocationFormActions as actions } from '.';
 
-function* createGeolocation(action) {
-  const { ipAddress: ip_address } = action.payload;
+function* createGeolocation({
+  payload: { ipAddress: ip_address },
+}: ReturnType<typeof actions.createGeolocationRequestAction>) {
   const requestURL = `${API_URL}/Geolocation`;
   const requestParameters = {
     method: 'POST',

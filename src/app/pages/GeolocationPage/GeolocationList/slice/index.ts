@@ -26,7 +26,7 @@ const slice = createSlice({
   name: 'geolocationList',
   initialState,
   reducers: {
-    getGeolocationsRequestAction(state) {
+    getGeolocationsRequestAction(state, action: PayloadAction<any>) {
       state.isLoading = true;
     },
     getGeolocationsSuccessAction(

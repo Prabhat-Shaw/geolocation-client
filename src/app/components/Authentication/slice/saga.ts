@@ -4,8 +4,9 @@ import { API_URL } from 'utils/endpoint';
 import { request } from 'utils/request';
 import { authenticationActions as actions } from '.';
 
-function* login(action) {
-  const { emailAddress: email_address, password, history } = action.payload;
+function* login({
+  payload: { emailAddress: email_address, password, history },
+}: ReturnType<typeof actions.loginRequestAction>) {
   const requestURL = `${API_URL}/Authentication/login`;
   const requestParameters = {
     method: 'POST',
@@ -26,8 +27,9 @@ function* login(action) {
   }
 }
 
-function* registration(action) {
-  const { emailAddress: email_address, password } = action.payload;
+function* registration({
+  payload: { emailAddress: email_address, password },
+}: ReturnType<typeof actions.registrationRequestAction>) {
   const requestURL = `${API_URL}/Authentication/registration`;
   const requestParameters = {
     method: 'POST',
@@ -47,8 +49,9 @@ function* registration(action) {
   }
 }
 
-function* logout(action) {
-  const { history } = action.payload;
+function* logout({
+  payload: { history },
+}: ReturnType<typeof actions.logoutRequestAction>) {
   const requestURL = `${API_URL}/Authentication/logout`;
   const requestParameters = {
     method: 'GET',
