@@ -16,11 +16,7 @@ export function RegistrationPage(props: Props) {
 
   return (
     <Div>
-      {t('')}
-
       <RegistrationForm />
-
-      {/*  {t(...messages.someThing())}  */}
     </Div>
   );
 }

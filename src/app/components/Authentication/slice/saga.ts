@@ -33,10 +33,7 @@ function* registration({
   const requestURL = `${API_URL}/Authentication/registration`;
   const requestParameters = {
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify({ email_address, password }),
   };
 
@@ -53,9 +50,7 @@ function* logout({
   payload: { history },
 }: ReturnType<typeof actions.logoutRequestAction>) {
   const requestURL = `${API_URL}/Authentication/logout`;
-  const requestParameters = {
-    method: 'GET',
-  };
+  const requestParameters = { method: 'GET' };
 
   try {
     yield call(request, requestURL, {

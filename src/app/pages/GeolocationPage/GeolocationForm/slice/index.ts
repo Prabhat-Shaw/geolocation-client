@@ -2,7 +2,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { geolocationFormSaga } from './saga';
-import { GeolocationFormState } from './types';
+import { CreateGeolocation, GeolocationFormState } from './types';
 
 export const initialState: GeolocationFormState = {
   isLoading: false,
@@ -13,7 +13,10 @@ const slice = createSlice({
   name: 'geolocationForm',
   initialState,
   reducers: {
-    createGeolocationRequestAction(state, action: PayloadAction<any>) {
+    createGeolocationRequestAction(
+      state,
+      action: PayloadAction<CreateGeolocation>,
+    ) {
       state.isLoading = true;
     },
     createGeolocationSuccessAction(state, action: PayloadAction<Geolocation>) {

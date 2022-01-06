@@ -1,8 +1,12 @@
-import { Exception } from 'types/Exception';
+import { History } from 'history';
 
 /* --- STATE --- */
 export interface GeolocationFormState {
   isLoading: boolean;
-  //   todo;
-  error?: Exception | null | any;
+  error?: string | null;
+}
+
+export interface CreateGeolocation {
+  history: History;
+  ipAddress: string;
 }

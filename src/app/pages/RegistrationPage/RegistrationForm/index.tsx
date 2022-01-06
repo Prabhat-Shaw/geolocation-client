@@ -4,13 +4,13 @@
  *
  */
 import { useAuthenticationSlice } from 'app/components/Authentication/slice';
+import { selectAuthentication } from 'app/components/Authentication/slice/selectors';
 import { LoadingIndicator } from 'app/components/LoadingIndicator';
 import * as React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import { selectRegistrationForm } from './slice/selectors';
 
 interface Props {}
 
@@ -32,25 +32,27 @@ export function RegistrationForm(props: Props) {
 
   const onSubmit: SubmitHandler<Inputs> = data =>
     dispatch(actions.registrationRequestAction(data));
-  const { isLoading } = useSelector(selectRegistrationForm);
+  const { isLoading } = useSelector(selectAuthentication);
 
   return (
     <Div>
-      {t('')}
-
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register('emailAddress', { required: true })} />
+        <input
+          disabled={isLoading}
+          {...register('emailAddress', { required: true })}
+        />
         {errors.password && <span>This field is required</span>}
 
-        <input {...register('password', { required: true })} />
+        <input
+          disabled={isLoading}
+          {...register('password', { required: true })}
+        />
         {errors.password && <span>This field is required</span>}
 
-        <input type="submit" />
+        <input disabled={isLoading} type="submit" />
       </form>
 
       {isLoading && <LoadingIndicator small />}
-
-      {/*  {t(...messages.someThing())}  */}
     </Div>
   );
 }

@@ -5,10 +5,6 @@
 import { combineReducers, Reducer } from '@reduxjs/toolkit';
 import { authenticationReducer } from 'app/components/Authentication/slice';
 import { AuthenticationState } from 'app/components/Authentication/slice/types';
-import { loginFormReducer } from 'app/pages/LoginPage/LoginForm/slice';
-import { LoginFormState } from 'app/pages/LoginPage/LoginForm/slice/types';
-import { registerFormReducer } from 'app/pages/RegistrationPage/RegistrationForm/slice';
-import { RegistrationFormState } from 'app/pages/RegistrationPage/RegistrationForm/slice/types';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { InjectedReducersType } from 'utils/types/injector-typings';
@@ -29,7 +25,5 @@ export function createReducer(injectedReducers: InjectedReducersType = {}) {
       authenticationPersistConfig,
       authenticationReducer as Reducer<AuthenticationState>,
     ),
-    loginForm: loginFormReducer as Reducer<LoginFormState>,
-    registrationForm: registerFormReducer as Reducer<RegistrationFormState>,
   });
 }

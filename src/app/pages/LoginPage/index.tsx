@@ -11,7 +11,6 @@ import { LoginForm } from './LoginForm';
 interface Props {}
 
 export function LoginPage(props: Props) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t, i18n } = useTranslation();
 
   return (

@@ -1,12 +1,12 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { Exception } from 'types/Exception';
 import { User } from 'types/User';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer } from 'utils/redux-injectors';
-import { AuthenticationState } from './types';
+import { AuthenticationState, Login, Logout, Registration } from './types';
 
 export const initialState: AuthenticationState = {
   isAuthenticated: false,
+  isLoading: false,
   user: null,
 };
 
@@ -14,26 +14,39 @@ const slice = createSlice({
   name: 'authentication',
   initialState,
   reducers: {
-    registrationRequestAction(state, action: PayloadAction<any>) {},
-    registrationSuccessAction(state) {},
-    registrationFailtureAction(
-      state,
-      action?: PayloadAction<Exception | any>,
-    ) {},
+    registrationRequestAction(state, action: PayloadAction<Registration>) {
+      state.isLoading = true;
+    },
+    registrationSuccessAction(state) {
+      state.isLoading = false;
+    },
+    registrationFailtureAction(state, action?: PayloadAction<string>) {
+      state.isLoading = false;
+    },
 
-    loginRequestAction(state, action: PayloadAction<any>) {},
+    loginRequestAction(state, action: PayloadAction<Login>) {
+      state.isLoading = true;
+    },
     loginSuccessAction(state, action: PayloadAction<User>) {
       state.isAuthenticated = true;
+      state.isLoading = false;
       state.user = action.payload;
     },
-    loginFailtureAction(state, action: PayloadAction<Exception | any>) {},
+    loginFailtureAction(state, action: PayloadAction<string>) {
+      state.isLoading = false;
+    },
 
-    logoutRequestAction(state, action: PayloadAction<any>) {},
+    logoutRequestAction(state, action: PayloadAction<Logout>) {
+      state.isLoading = true;
+    },
     logoutSuccessAction(state) {
       state.isAuthenticated = false;
+      state.isLoading = false;
       state.user = null;
     },
-    logoutFailtureAction(state, action: PayloadAction<Exception | any>) {},
+    logoutFailtureAction(state, action: PayloadAction<string>) {
+      state.isLoading = false;
+    },
   },
 });
 

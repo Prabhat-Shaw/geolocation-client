@@ -1,8 +1,6 @@
 import { AuthenticationState } from 'app/components/Authentication/slice/types';
-import { GeolocationListState } from 'app/pages/GeolocationPage/GeolocationList/slice/types';
-import { LoginFormState } from 'app/pages/LoginPage/LoginForm/slice/types';
-import { RegistrationFormState } from 'app/pages/RegistrationPage/RegistrationForm/slice/types';
 import { GeolocationFormState } from 'app/pages/GeolocationPage/GeolocationForm/slice/types';
+import { GeolocationListState } from 'app/pages/GeolocationPage/GeolocationList/slice/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
 /* 
@@ -10,8 +8,6 @@ import { GeolocationFormState } from 'app/pages/GeolocationPage/GeolocationForm/
   You have to declare them here manually
 */
 export interface RootState {
-  loginForm?: LoginFormState;
-  registrationForm?: RegistrationFormState;
   authentication?: AuthenticationState;
   geolocationList?: GeolocationListState;
   geolocationForm?: GeolocationFormState;
