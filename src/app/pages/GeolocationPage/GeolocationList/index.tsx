@@ -7,7 +7,10 @@ import { LoadingIndicator } from 'app/components/LoadingIndicator';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { Geolocation } from 'types/Geolocation';
+import { GeolocationListItem } from './GeolocationListItem';
 import { useGeolocationListSlice } from './slice';
 import { selectGeolocationList } from './slice/selectors';
 
@@ -17,6 +20,7 @@ export function GeolocationList(props: Props) {
   const { actions } = useGeolocationListSlice();
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
+  const history = useHistory();
   const { geolocations, isLoading } = useSelector(selectGeolocationList);
 
   const useEffectOnMount = (effect: React.EffectCallback) => {
@@ -24,13 +28,17 @@ export function GeolocationList(props: Props) {
   };
 
   useEffectOnMount(() => {
-    dispatch(actions.getGeolocationsRequestAction({ page: 1 }));
+    dispatch(
+      actions.getGeolocationsRequestAction({ page: 1, order: 'DESC', history }),
+    );
   });
 
   const onNextPage = () =>
     dispatch(
       actions.getGeolocationsRequestAction({
         page: geolocations.meta.page + 1,
+        order: 'DESC',
+        history,
       }),
     );
 
@@ -38,22 +46,18 @@ export function GeolocationList(props: Props) {
     dispatch(
       actions.getGeolocationsRequestAction({
         page: geolocations.meta.page - 1,
+        order: 'DESC',
+        history,
       }),
     );
 
   return (
     <Div>
-      {t('')}
+      {geolocations.data.map((geolocation: Geolocation) => (
+        <GeolocationListItem key={geolocation.uuid} geolocation={geolocation} />
+      ))}
 
-      <div>
-        {isLoading ? (
-          <LoadingIndicator />
-        ) : (
-          geolocations.data.map(geolocation => (
-            <div key={geolocation.uuid}>{geolocation.ip}</div>
-          ))
-        )}
-      </div>
+      {isLoading && <LoadingIndicator />}
 
       <div style={{ display: 'flex' }}>
         <button

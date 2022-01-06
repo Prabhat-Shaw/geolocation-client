@@ -21,7 +21,9 @@ function* createGeolocation({
 
     yield put(actions.createGeolocationSuccessAction(geolocation));
   } catch (error) {
-    yield put(actions.createGeolocationFailtureAction('test'));
+    yield put(
+      actions.createGeolocationFailtureAction(error.response?.statusText),
+    );
   }
 }
 

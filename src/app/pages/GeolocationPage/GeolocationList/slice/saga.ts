@@ -6,9 +6,9 @@ import { request } from 'utils/request';
 import { geolocationListActions as actions } from '.';
 
 function* getGeolocations({
-  payload: { page },
+  payload: { page, order, history },
 }: ReturnType<typeof actions.getGeolocationsRequestAction>) {
-  const requestURL = `${API_URL}/Geolocation?page=${page}`;
+  const requestURL = `${API_URL}/Geolocation?page=${page}&order=${order}`;
   const requestParameters = { method: 'GET' };
 
   try {
@@ -20,12 +20,18 @@ function* getGeolocations({
 
     yield put(actions.getGeolocationsSuccessAction(geolocations));
   } catch (error) {
-    yield put(actions.getGeolocationsFailtureAction('test'));
+    yield put(
+      actions.getGeolocationsFailtureAction(error.response?.statusText),
+    );
+
+    if (error.response?.status === 401) {
+      history.push('/login');
+    }
   }
 }
 
 function* removeGeolocation({
-  payload: { uuid },
+  payload: { uuid, history },
 }: ReturnType<typeof actions.removeGeolocationRequestAction>) {
   const requestURL = `${API_URL}/Geolocation/${uuid}`;
   const requestParameters = { method: 'DELETE' };
@@ -38,7 +44,13 @@ function* removeGeolocation({
 
     yield put(actions.removeGeolocationSuccessAction(geolocation));
   } catch (error) {
-    yield put(actions.removeGeolocationFailtureAction('test'));
+    yield put(
+      actions.removeGeolocationFailtureAction(error.response?.statusText),
+    );
+
+    if (error.response?.status === 401) {
+      history.push('/login');
+    }
   }
 }
 

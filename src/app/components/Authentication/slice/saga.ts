@@ -23,7 +23,7 @@ function* login({
     yield put(actions.loginSuccessAction(user));
     history.push('/');
   } catch (error) {
-    yield put(actions.loginFailtureAction('test'));
+    yield put(actions.loginFailtureAction(error.response?.statusText));
   }
 }
 

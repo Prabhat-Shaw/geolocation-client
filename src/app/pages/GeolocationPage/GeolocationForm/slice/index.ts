@@ -19,8 +19,9 @@ const slice = createSlice({
     createGeolocationSuccessAction(state, action: PayloadAction<Geolocation>) {
       state.isLoading = false;
     },
-    createGeolocationFailtureAction(state, action: PayloadAction<any>) {
+    createGeolocationFailtureAction(state, action: PayloadAction<string>) {
       state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });

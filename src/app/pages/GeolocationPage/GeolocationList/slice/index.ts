@@ -3,8 +3,13 @@ import { Geolocation } from 'types/Geolocation';
 import { Pagination } from 'types/Pagination';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+import { geolocationFormActions } from '../../GeolocationForm/slice';
 import { geolocationListSaga } from './saga';
-import { GeolocationListState } from './types';
+import {
+  GeolocationListState,
+  GetGeolocations,
+  RemoveGeolocation,
+} from './types';
 
 export const initialState: GeolocationListState = {
   geolocations: {
@@ -26,7 +31,10 @@ const slice = createSlice({
   name: 'geolocationList',
   initialState,
   reducers: {
-    getGeolocationsRequestAction(state, action: PayloadAction<any>) {
+    getGeolocationsRequestAction(
+      state,
+      action: PayloadAction<GetGeolocations>,
+    ) {
       state.isLoading = true;
     },
     getGeolocationsSuccessAction(
@@ -34,20 +42,40 @@ const slice = createSlice({
       action: PayloadAction<Pagination<Geolocation>>,
     ) {
       state.isLoading = false;
-      state.geolocations = action.payload;
+      state.geolocations.data = [
+        ...state.geolocations.data,
+        ...action.payload.data,
+      ];
+      state.geolocations.meta = action.payload.meta;
     },
-    getGeolocationsFailtureAction(state, action: PayloadAction<any>) {
+    getGeolocationsFailtureAction(state, action: PayloadAction<string>) {
       state.isLoading = false;
+      state.error = action.payload;
     },
 
-    removeGeolocationRequestAction(state, action: PayloadAction<any>) {
+    removeGeolocationRequestAction(
+      state,
+      action: PayloadAction<RemoveGeolocation>,
+    ) {
       state.isLoading = true;
     },
     removeGeolocationSuccessAction(state, action: PayloadAction<Geolocation>) {
       state.isLoading = false;
+      state.geolocations.data = state.geolocations.data.filter(
+        (geolocation: Geolocation) => geolocation.uuid !== action.payload.uuid,
+      );
     },
-    removeGeolocationFailtureAction(state, action: PayloadAction<any>) {
+    removeGeolocationFailtureAction(state, action: PayloadAction<string>) {
       state.isLoading = false;
+      state.error = action.payload;
+    },
+  },
+  extraReducers: {
+    [geolocationFormActions.createGeolocationSuccessAction.type]: (
+      state,
+      action: PayloadAction<Geolocation>,
+    ) => {
+      state.geolocations.data = [...state.geolocations.data, action.payload];
     },
   },
 });
