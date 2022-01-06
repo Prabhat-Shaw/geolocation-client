@@ -42,10 +42,7 @@ const slice = createSlice({
       action: PayloadAction<Pagination<Geolocation>>,
     ) {
       state.isLoading = false;
-      state.geolocations.data = [
-        ...state.geolocations.data,
-        ...action.payload.data,
-      ];
+      state.geolocations.data = action.payload.data;
       state.geolocations.meta = action.payload.meta;
     },
     getGeolocationsFailtureAction(state, action: PayloadAction<string>) {

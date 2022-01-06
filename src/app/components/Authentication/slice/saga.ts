@@ -23,7 +23,9 @@ function* login({
     yield put(actions.loginSuccessAction(user));
     history.push('/');
   } catch (error) {
-    yield put(actions.loginFailtureAction(error.response?.statusText));
+    yield put(
+      actions.loginFailtureAction(error?.response?.statusText || error.message),
+    );
   }
 }
 
@@ -42,7 +44,11 @@ function* registration({
 
     yield put(actions.registrationSuccessAction());
   } catch (error) {
-    yield put(actions.registrationFailtureAction('error'));
+    yield put(
+      actions.registrationFailtureAction(
+        error?.response?.statusText || error.message,
+      ),
+    );
   }
 }
 
@@ -61,7 +67,11 @@ function* logout({
     yield put(actions.logoutSuccessAction());
     history.push('/login');
   } catch (error) {
-    yield put(actions.logoutFailtureAction('error'));
+    yield put(
+      actions.logoutFailtureAction(
+        error?.response?.statusText || error.message,
+      ),
+    );
   }
 }
 

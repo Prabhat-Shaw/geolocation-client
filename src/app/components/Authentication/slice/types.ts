@@ -5,6 +5,7 @@ import { User } from 'types/User';
 export interface AuthenticationState {
   isAuthenticated: boolean;
   isLoading: boolean;
+  error: string | null;
   user: User | null;
 }
 

@@ -3,6 +3,16 @@
  * LoginForm
  *
  */
+import { Button } from 'app/components/Authentication/components/Button';
+import { Footer } from 'app/components/Authentication/components/Footer';
+import {
+  Form,
+  FormAction,
+  FormContainer,
+  FormWrapper,
+} from 'app/components/Authentication/components/Form';
+import { Header } from 'app/components/Authentication/components/Header';
+import { Input } from 'app/components/Authentication/components/Input';
 import { useAuthenticationSlice } from 'app/components/Authentication/slice';
 import { selectAuthentication } from 'app/components/Authentication/slice/selectors';
 import { LoadingIndicator } from 'app/components/LoadingIndicator';
@@ -11,16 +21,13 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components/macro';
-
-interface Props {}
 
 type Inputs = {
   emailAddress: string;
   password: string;
 };
 
-export function LoginForm(props: Props) {
+export function LoginForm() {
   const { actions } = useAuthenticationSlice();
   const {
     register,
@@ -34,30 +41,52 @@ export function LoginForm(props: Props) {
 
   const onSubmit: SubmitHandler<Inputs> = data =>
     dispatch(actions.loginRequestAction({ ...data, history }));
-  const { isLoading } = useSelector(selectAuthentication);
+  const { isLoading, error } = useSelector(selectAuthentication);
+
+  const onRedirectToRegistration = () => history.push('/registration');
 
   return (
-    <Div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          disabled={isLoading}
-          {...register('emailAddress', { required: true })}
-        />
-        {errors.password && <span>This field is required</span>}
+    <FormContainer>
+      <FormWrapper>
+        <Header />
 
-        <input
-          disabled={isLoading}
-          type="password"
-          {...register('password', { required: true })}
-        />
-        {errors.password && <span>This field is required</span>}
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            errored={errors.emailAddress}
+            placeholder="Email address"
+            disabled={isLoading}
+            {...register('emailAddress', { required: true })}
+          />
 
-        <input disabled={isLoading} type="submit" />
-      </form>
+          <Input
+            errored={errors.password}
+            disabled={isLoading}
+            placeholder="Password"
+            type="password"
+            {...register('password', { required: true, minLength: 6 })}
+          />
 
-      {isLoading && <LoadingIndicator small />}
-    </Div>
+          <Button disabled={isLoading} type="submit">
+            {isLoading ? (
+              <LoadingIndicator small />
+            ) : error ? (
+              error
+            ) : (
+              'Zaloguj się'
+            )}
+          </Button>
+
+          <FormAction>
+            Nie masz konta?{' '}
+            <span onClick={onRedirectToRegistration}>
+              Przejdź do rejestracji
+            </span>
+            .
+          </FormAction>
+        </Form>
+      </FormWrapper>
+
+      <Footer />
+    </FormContainer>
   );
 }
-
-const Div = styled.div``;

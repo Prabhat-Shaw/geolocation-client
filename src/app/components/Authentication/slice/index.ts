@@ -8,6 +8,7 @@ export const initialState: AuthenticationState = {
   isAuthenticated: false,
   isLoading: false,
   user: null,
+  error: null,
 };
 
 const slice = createSlice({
@@ -20,8 +21,9 @@ const slice = createSlice({
     registrationSuccessAction(state) {
       state.isLoading = false;
     },
-    registrationFailtureAction(state, action?: PayloadAction<string>) {
+    registrationFailtureAction(state, action: PayloadAction<string>) {
       state.isLoading = false;
+      state.error = action.payload;
     },
 
     loginRequestAction(state, action: PayloadAction<Login>) {
@@ -34,6 +36,7 @@ const slice = createSlice({
     },
     loginFailtureAction(state, action: PayloadAction<string>) {
       state.isLoading = false;
+      state.error = action.payload;
     },
 
     logoutRequestAction(state, action: PayloadAction<Logout>) {
@@ -46,6 +49,7 @@ const slice = createSlice({
     },
     logoutFailtureAction(state, action: PayloadAction<string>) {
       state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });

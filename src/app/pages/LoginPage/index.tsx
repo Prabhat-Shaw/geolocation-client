@@ -3,23 +3,17 @@
  * LoginPage
  *
  */
+import { Container } from 'app/components/Authentication/components/Container';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components/macro';
 import { LoginForm } from './LoginForm';
 
-interface Props {}
-
-export function LoginPage(props: Props) {
+export function LoginPage() {
   const { t, i18n } = useTranslation();
 
   return (
-    <Div>
-      {t('')}
+    <Container>
       <LoginForm />
-      {/*  {t(...messages.someThing())}  */}
-    </Div>
+    </Container>
   );
 }
-
-const Div = styled.div``;

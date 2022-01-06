@@ -24,7 +24,7 @@ export function App() {
   useInjectSaga({ key: 'authentication', saga: authenticationSaga });
 
   return (
-    <BrowserRouter>
+    <BrowserRouter forceRefresh>
       <Helmet
         titleTemplate="%s - React Boilerplate"
         defaultTitle="React Boilerplate"
@@ -41,6 +41,7 @@ export function App() {
           <Route exact path="/" component={GeolocationPage} />
         </AuthenticationGuard>
 
+        {/* todo */}
         <Route component={NotFoundPage} />
       </Switch>
 
