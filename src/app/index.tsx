@@ -14,6 +14,7 @@ import { GlobalStyle } from 'styles/global-styles';
 import { useInjectSaga } from 'utils/redux-injectors';
 import { AuthenticationGuard } from './components/Authentication';
 import { authenticationSaga } from './components/Authentication/slice/saga';
+import { Layout } from './components/Layout';
 import { GeolocationPage } from './pages/GeolocationPage/Loadable';
 import { LoginPage } from './pages/LoginPage/Loadable';
 import { NotFoundPage } from './pages/NotFoundPage/Loadable';
@@ -26,11 +27,11 @@ export function App() {
   return (
     <BrowserRouter forceRefresh>
       <Helmet
-        titleTemplate="%s - React Boilerplate"
-        defaultTitle="React Boilerplate"
+        titleTemplate="%s - Geolocation"
+        defaultTitle="Geolocation"
         htmlAttributes={{ lang: i18n.language }}
       >
-        <meta name="description" content="A React Boilerplate application" />
+        <meta name="description" content="Geolocation application" />
       </Helmet>
 
       <Switch>
@@ -38,7 +39,9 @@ export function App() {
         <Route exact path="/registration" component={RegistrationPage} />
 
         <AuthenticationGuard>
-          <Route exact path="/" component={GeolocationPage} />
+          <Layout>
+            <Route exact path="/" component={GeolocationPage} />
+          </Layout>
         </AuthenticationGuard>
 
         {/* todo */}

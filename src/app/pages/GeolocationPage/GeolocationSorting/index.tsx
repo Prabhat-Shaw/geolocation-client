@@ -22,11 +22,7 @@ export function GeolocationSorting(props: Props) {
 
   return (
     <Div>
-      <div>Sorting</div>
-
-      <div>
-        <Button onClick={onChangeSorting}>Sorting {sorting}</Button>
-      </div>
+      <Button onClick={onChangeSorting}>Sorting {sorting}</Button>
     </Div>
   );
 }

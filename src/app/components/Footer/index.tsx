@@ -28,6 +28,14 @@ const StyledFooter = styled.footer`
   padding: 10px;
   color: grey;
   font-size: 13px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
 
   a {
     text-decoration: none;

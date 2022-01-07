@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Footer  /> should match snapshot 1`] = `
+.c0 {
+  text-align: right;
+  padding: 12px 24px;
+  font-size: 12px;
+  opacity: 0.8;
+  text-align: center;
+}
+
+<footer>
+  <div
+    class="c0"
+  >
+    Copyright © 
+    2022
+     
+    <a
+      href="https://pietrzakadrian.com"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Adrian Pietrzak
+    </a>
+  </div>
+</footer>
+`;

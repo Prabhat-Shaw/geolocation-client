@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header  /> should match snapshot 1`] = `
+.c0 {
+  margin-bottom: 30px;
+}
+
+.c1 {
+  width: 80%;
+  height: auto;
+  margin: 10px;
+}
+
+<header>
+  <div
+    class="c0"
+  >
+    <img
+      alt="ipstack"
+      class="c1"
+      src="logo.png"
+    />
+  </div>
+</header>
+`;

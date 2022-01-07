@@ -20,15 +20,12 @@ export function GeolocationFiltering(props: Props) {
 
   return (
     <div>
-      <div>Filtering:</div>
-
       {filters.map((filter, index) => (
         <div key={index}>
           {filter.region_code && (
             <>
-              <div>Region code:</div>
-
               <ul>
+                Region code:
                 {filter.region_code?.map((item, index) => (
                   <li
                     onClick={() => onChangeFiltering('region_code', item)}

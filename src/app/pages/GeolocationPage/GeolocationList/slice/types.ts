@@ -6,6 +6,8 @@ import { Pagination } from 'types/Pagination';
 export interface GeolocationListState {
   geolocations: Pagination<Geolocation>;
   isLoading: boolean;
+  isFiltering: boolean;
+  geolocationsCopy: any;
   filters: any;
   sorting: Order;
   error?: string | null;

@@ -105,12 +105,13 @@ const DivContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 90%;
+  width: 70%;
 `;
 
 export const Button = styled.button`
   position: absolute;
   right: 10px;
+  top: 0;
   align-items: center;
   background-clip: padding-box;
   background-color: #fa6400;

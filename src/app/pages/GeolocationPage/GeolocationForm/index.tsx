@@ -64,10 +64,7 @@ export function GeolocationForm(props: Props) {
   );
 }
 
-const Form = styled.form`
-  display: flex;
-  align-items: center;
-`;
+const Form = styled.form``;
 
 const Div = styled.div`
   max-width: 768px;
@@ -79,7 +76,10 @@ const Div = styled.div`
   border: 1px solid red;
 `;
 
-const FormWrapper = styled.div``;
+const FormWrapper = styled.div`
+  max-width: 768px;
+  margin: 0 auto;
+`;
 
 export const Button = styled.button`
   align-items: center;

@@ -14,7 +14,8 @@ import {
 
 export const initialState: GeolocationListState = {
   sorting: Order.ASC,
-  filters: [{ region_code: [] }, { capital: [] }],
+  filters: [{ region_code: [] }],
+  geolocationsCopy: [],
   geolocations: {
     data: [],
     meta: {
@@ -27,6 +28,7 @@ export const initialState: GeolocationListState = {
     },
   },
   isLoading: false,
+  isFiltering: false,
   error: null,
 };
 
@@ -55,20 +57,9 @@ const slice = createSlice({
         element => 'region_code' in element,
       ).region_code;
 
-      const capitalFilter = state.filters.find(
-        element => 'capital' in element,
-      ).capital;
-
-      for (const {
-        region_code,
-        location: { capital },
-      } of state.geolocations.data) {
+      for (const { region_code } of state.geolocations.data) {
         if (!regionFilter.includes(region_code)) {
           regionFilter.push(region_code);
-        }
-
-        if (!capitalFilter.includes(capital)) {
-          capitalFilter.push(capital);
         }
       }
     },
@@ -100,10 +91,20 @@ const slice = createSlice({
     },
 
     filteringAction(state, action: PayloadAction<any>) {
-      state.geolocations.data = state.geolocations.data.filter(
-        (geolocation: Geolocation) =>
-          geolocation[action.payload.key] === action.payload.value,
-      );
+      if (!state.isFiltering) {
+        state.isFiltering = true;
+
+        state.geolocationsCopy = state.geolocations.data.filter(
+          (geolocation: Geolocation) =>
+            geolocation[action.payload.key] === action.payload.value,
+        );
+      } else {
+        state.geolocationsCopy = state.geolocations.data;
+        state.geolocationsCopy = state.geolocationsCopy.filter(
+          (geolocation: Geolocation) =>
+            geolocation[action.payload.key] === action.payload.value,
+        );
+      }
     },
   },
   extraReducers: {
