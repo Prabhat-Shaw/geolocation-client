@@ -1,58 +1,37 @@
 /**
  *
- * Header
+ * GeolocationSorting
  *
  */
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { useAuthenticationSlice } from '../Authentication/slice';
-import { selectAuthentication } from '../Authentication/slice/selectors';
-import logo from './logo.png';
+import { useGeolocationListSlice } from '../GeolocationList/slice';
+import { selectGeolocationList } from '../GeolocationList/slice/selectors';
 
-export function Header() {
-  const { actions } = useAuthenticationSlice();
+interface Props {}
 
+export function GeolocationSorting(props: Props) {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const { isLoading } = useSelector(selectAuthentication);
+  const { sorting } = useSelector(selectGeolocationList);
 
-  const onLogout = () => dispatch(actions.logoutRequestAction({ history }));
+  const { t, i18n } = useTranslation();
+  const { actions } = useGeolocationListSlice();
+  const onChangeSorting = () => dispatch(actions.sortingAction());
 
   return (
-    <StyledHeader>
-      <div>
-        <Img src={logo} alt="ipstack" />
-      </div>
+    <Div>
+      <div>Sorting</div>
 
-      <Button disabled={isLoading} onClick={onLogout}>
-        Logout
-      </Button>
-    </StyledHeader>
+      <div>
+        <Button onClick={onChangeSorting}>Sorting {sorting}</Button>
+      </div>
+    </Div>
   );
 }
 
-const StyledHeader = styled.header`
-  width: 100%;
-  z-index: 2;
-  background-color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 80px;
-  padding: 0 20px;
-  position: sticky;
-  top: 0;
-  box-shadow: rgb(0 0 0 / 20%) 0em 0.0625em 0.1875em 0em,
-    rgb(0 0 0 / 14%) 0em 0.0625em 0.0625em 0em,
-    rgb(0 0 0 / 12%) 0em 0.125em 0.0625em -0.0625em;
-`;
-
-const Img = styled.img`
-  width: 130px;
-  height: auto;
-`;
+const Div = styled.div``;
 
 export const Button = styled.button`
   align-items: center;
@@ -81,6 +60,7 @@ export const Button = styled.button`
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: baseline;
+  width: 100%;
 
   &:hover,
   &:focus {

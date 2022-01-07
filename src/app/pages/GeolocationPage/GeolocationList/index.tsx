@@ -71,7 +71,7 @@ export function GeolocationList(props: Props) {
 
 const Div = styled.div`
   overflow-y: scroll;
-  height: 800px;
+  max-height: 800px;
   padding: 0 0 50px;
 `;
 

@@ -4,14 +4,13 @@
  *
  */
 import { Input } from 'app/components/Authentication/components/Input';
+import { LoadingIndicator } from 'app/components/LoadingIndicator';
 import * as React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { useGeolocationListSlice } from '../GeolocationList/slice';
-import { selectGeolocationList } from '../GeolocationList/slice/selectors';
 import { useGeolocationFormSlice } from './slice';
 import { selectGeolocationForm } from './slice/selectors';
 
@@ -24,68 +23,51 @@ type Inputs = {
 export function GeolocationForm(props: Props) {
   const dispatch = useDispatch();
   const { actions } = useGeolocationFormSlice();
-  const { actions: actionsList } = useGeolocationListSlice();
-
-  const { sorting } = useSelector(selectGeolocationList);
 
   const history = useHistory();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = data =>
     dispatch(actions.createGeolocationRequestAction({ ...data, history }));
 
-  const onChangeSorting = () => dispatch(actionsList.sortingAction());
+  const { isLoading, error } = useSelector(selectGeolocationForm);
 
-  const onChangeFiltering = () =>
-    dispatch(
-      actionsList.filteringAction({ key: 'region_name', value: 'California' }),
-    );
-
-  const { isLoading } = useSelector(selectGeolocationForm);
-  const { filters } = useSelector(selectGeolocationList);
   const { t, i18n } = useTranslation();
 
   return (
-    <Div>
-      <FormWrapper>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            placeholder="Enter ip address"
-            errored={errors.ipAddress}
-            disabled={isLoading}
-            {...register('ipAddress', { required: true })}
-          />
+    <FormWrapper>
+      <div>Add new ip</div>
 
-          <button disabled={isLoading} type="submit">
-            Dodaj
-          </button>
-        </form>
-      </FormWrapper>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          placeholder="Enter ip address"
+          errored={errors.ipAddress}
+          disabled={isLoading}
+          {...register('ipAddress', { required: true })}
+        />
 
-      <div>
-        Sorting
-        <button onClick={onChangeSorting}>Sorting {sorting}</button>
-      </div>
-
-      <div>
-        <div>region_code:</div>
-        {/* {filters.region_code.map(region_code => (
-          <div>{region_code}</div>
-        ))}
-        <div>capital:</div>
-        {filters.capital.map(capital => (
-          <div>{capital}</div>
-        ))} */}
-        <button onClick={onChangeFiltering}>Filtering</button>
-      </div>
-    </Div>
+        <Button disabled={isLoading} type="submit">
+          {isLoading ? (
+            <LoadingIndicator small />
+          ) : error ? (
+            error
+          ) : (
+            'Add IP address'
+          )}
+        </Button>
+      </Form>
+    </FormWrapper>
   );
 }
+
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+`;
 
 const Div = styled.div`
   max-width: 768px;
@@ -94,6 +76,54 @@ const Div = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border: 1px solid red;
 `;
 
 const FormWrapper = styled.div``;
+
+export const Button = styled.button`
+  align-items: center;
+  background-clip: padding-box;
+  background-color: #fa6400;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui, -apple-system, system-ui, 'Helvetica Neue', Helvetica,
+    Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 10px 0;
+  min-height: 3rem;
+  padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: 100%;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    background-color: #fb8332;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    background-color: #c85000;
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    transform: translateY(0);
+  }
+`;

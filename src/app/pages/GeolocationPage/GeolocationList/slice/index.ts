@@ -51,21 +51,26 @@ const slice = createSlice({
       ];
       state.geolocations.meta = action.payload.meta;
 
-      // action.payload.data.forEach((geolocation: Geolocation) => {
-      //   if (!state.filters.region_code.includes(geolocation.region_code)) {
-      //     state.filters.region_code = [
-      //       ...state.filters.region_code,
-      //       geolocation.region_code,
-      //     ];
-      //   }
+      const regionFilter = state.filters.find(
+        element => 'region_code' in element,
+      ).region_code;
 
-      //   if (!state.filters.capital.includes(geolocation.location.capital)) {
-      //     state.filters.capital = [
-      //       ...state.filters.capital,
-      //       geolocation.location.capital,
-      //     ];
-      //   }
-      // });
+      const capitalFilter = state.filters.find(
+        element => 'capital' in element,
+      ).capital;
+
+      for (const {
+        region_code,
+        location: { capital },
+      } of state.geolocations.data) {
+        if (!regionFilter.includes(region_code)) {
+          regionFilter.push(region_code);
+        }
+
+        if (!capitalFilter.includes(capital)) {
+          capitalFilter.push(capital);
+        }
+      }
     },
     getGeolocationsFailtureAction(state, action: PayloadAction<string>) {
       state.isLoading = false;

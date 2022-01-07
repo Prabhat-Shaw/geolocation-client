@@ -30,12 +30,12 @@ export function GeolocationListItem({ geolocation }: Props) {
   return (
     <Div>
       <CloseButtonWrapper>
-        <CloseButton
+        <Button
           disabled={user?.uuid !== geolocation.user.uuid}
           onClick={() => onDeleteItem(geolocation.uuid)}
         >
           delete
-        </CloseButton>
+        </Button>
       </CloseButtonWrapper>
 
       <DivContainer
@@ -108,32 +108,50 @@ const DivContainer = styled.div`
   width: 90%;
 `;
 
-const CloseButton = styled.button`
+export const Button = styled.button`
   position: absolute;
   right: 10px;
-  z-index: 2;
-  background-color: rgba(51, 51, 51, 0.05);
-  border-radius: 8px;
-  border-width: 0;
-  color: #333333;
+  align-items: center;
+  background-clip: padding-box;
+  background-color: #fa6400;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: #fff;
   cursor: pointer;
-  display: inline-block;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
-  list-style: none;
-  margin: 0;
-  padding: 10px 12px;
-  text-align: center;
-  transition: all 200ms;
-  vertical-align: baseline;
-  white-space: nowrap;
+  display: inline-flex;
+  font-family: system-ui, -apple-system, system-ui, 'Helvetica Neue', Helvetica,
+    Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 10px 0;
+  min-height: 3rem;
+  padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
+  text-decoration: none;
+  transition: all 250ms;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  vertical-align: baseline;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    background-color: #fb8332;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  }
 
   &:hover {
-    background-color: red;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    background-color: #c85000;
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    transform: translateY(0);
   }
 `;
 
