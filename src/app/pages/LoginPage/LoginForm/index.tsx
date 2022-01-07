@@ -15,7 +15,6 @@ import { Header } from 'app/components/Authentication/components/Header';
 import { Input } from 'app/components/Authentication/components/Input';
 import { useAuthenticationSlice } from 'app/components/Authentication/slice';
 import { selectAuthentication } from 'app/components/Authentication/slice/selectors';
-import { LoadingIndicator } from 'app/components/LoadingIndicator';
 import * as React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -66,22 +65,11 @@ export function LoginForm() {
             {...register('password', { required: true, minLength: 6 })}
           />
 
-          <Button disabled={isLoading} type="submit">
-            {isLoading ? (
-              <LoadingIndicator small />
-            ) : error ? (
-              error
-            ) : (
-              'Zaloguj się'
-            )}
-          </Button>
+          <Button isLoading={isLoading} error={error} defaultText={'Log in'} />
 
           <FormAction>
-            Nie masz konta?{' '}
-            <span onClick={onRedirectToRegistration}>
-              Przejdź do rejestracji
-            </span>
-            .
+            You do not have an account?{' '}
+            <span onClick={onRedirectToRegistration}>Registration</span>.
           </FormAction>
         </Form>
       </FormWrapper>

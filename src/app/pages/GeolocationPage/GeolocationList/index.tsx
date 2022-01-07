@@ -21,7 +21,9 @@ export function GeolocationList(props: Props) {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const history = useHistory();
-  const { geolocations, isLoading } = useSelector(selectGeolocationList);
+  const { geolocations, isLoading, sorting } = useSelector(
+    selectGeolocationList,
+  );
 
   const useEffectOnMount = (effect: React.EffectCallback) => {
     React.useEffect(effect, []);
@@ -29,57 +31,50 @@ export function GeolocationList(props: Props) {
 
   useEffectOnMount(() => {
     dispatch(
-      actions.getGeolocationsRequestAction({ page: 1, order: 'DESC', history }),
+      actions.getGeolocationsRequestAction({
+        page: 1,
+        order: sorting,
+        history,
+      }),
     );
   });
 
-  const onNextPage = () =>
-    dispatch(
-      actions.getGeolocationsRequestAction({
-        page: geolocations.meta.page + 1,
-        order: 'DESC',
-        history,
-      }),
-    );
+  const handleScroll = e => {
+    const bottom =
+      e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
 
-  const onPreviousPage = () =>
-    dispatch(
-      actions.getGeolocationsRequestAction({
-        page: geolocations.meta.page - 1,
-        order: 'DESC',
-        history,
-      }),
-    );
+    if (bottom && geolocations.meta.has_next_page) {
+      dispatch(
+        actions.getGeolocationsRequestAction({
+          page: geolocations.meta.page + 1,
+          order: sorting,
+          history,
+        }),
+      );
+    }
+  };
 
   return (
-    <Div>
+    <Div onScroll={handleScroll}>
       {geolocations.data.map((geolocation: Geolocation) => (
         <GeolocationListItem key={geolocation.uuid} geolocation={geolocation} />
       ))}
 
-      {isLoading && <LoadingIndicator />}
-
-      <div style={{ display: 'flex' }}>
-        <button
-          onClick={onPreviousPage}
-          disabled={!geolocations.meta.has_previous_page}
-        >
-          previous
-        </button>
-
-        <div>
-          {geolocations.meta.page} / {geolocations.meta.page_count}
-        </div>
-
-        <button
-          onClick={onNextPage}
-          disabled={!geolocations.meta.has_next_page}
-        >
-          Next
-        </button>
-      </div>
+      {isLoading && (
+        <LoadingIndicatorWrapper>
+          <LoadingIndicator />
+        </LoadingIndicatorWrapper>
+      )}
     </Div>
   );
 }
 
-const Div = styled.div``;
+const Div = styled.div`
+  overflow-y: scroll;
+  height: 800px;
+  padding: 0 0 50px;
+`;
+
+const LoadingIndicatorWrapper = styled.div`
+  text-align: center;
+`;

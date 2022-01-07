@@ -7,9 +7,7 @@ import * as React from 'react';
 import styled from 'styled-components/macro';
 import logo from './logo.png';
 
-interface Props {}
-
-export function Header(props: Props) {
+export function Header() {
   return (
     <header>
       <Div>

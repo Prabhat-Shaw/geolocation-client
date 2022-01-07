@@ -23,6 +23,8 @@ function* login({
     yield put(actions.loginSuccessAction(user));
     history.push('/');
   } catch (error) {
+    console.log({ error: error });
+
     yield put(
       actions.loginFailtureAction(error?.response?.statusText || error.message),
     );

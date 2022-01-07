@@ -6,6 +6,8 @@ import { Pagination } from 'types/Pagination';
 export interface GeolocationListState {
   geolocations: Pagination<Geolocation>;
   isLoading: boolean;
+  filters: any;
+  sorting: Order;
   error?: string | null;
 }
 
@@ -18,4 +20,9 @@ export interface GetGeolocations {
   page: number;
   order: string;
   history: History;
+}
+
+export enum Order {
+  ASC = 'ASC',
+  DESC = 'DESC',
 }

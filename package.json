@@ -2,7 +2,7 @@
   "name": "geolocation-client",
   "description": "geolocation-client",
   "author": "pietrzakadrian",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "engines": {
     "yarn": ">=1.22.10",

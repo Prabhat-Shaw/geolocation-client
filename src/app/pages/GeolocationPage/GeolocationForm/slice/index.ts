@@ -32,7 +32,10 @@ const slice = createSlice({
 export const { actions: geolocationFormActions } = slice;
 
 export const useGeolocationFormSlice = () => {
-  useInjectReducer({ key: slice.name, reducer: slice.reducer });
+  useInjectReducer({
+    key: slice.name,
+    reducer: slice.reducer,
+  });
   useInjectSaga({ key: slice.name, saga: geolocationFormSaga });
   return { actions: slice.actions };
 };
