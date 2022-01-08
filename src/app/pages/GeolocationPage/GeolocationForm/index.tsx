@@ -66,16 +66,6 @@ export function GeolocationForm(props: Props) {
 
 const Form = styled.form``;
 
-const Div = styled.div`
-  max-width: 768px;
-  margin: 0 auto;
-  padding: 20px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid red;
-`;
-
 const FormWrapper = styled.div`
   max-width: 768px;
   margin: 0 auto;

@@ -16,6 +16,7 @@ const slice = createSlice({
   initialState,
   reducers: {
     registrationRequestAction(state, action: PayloadAction<Registration>) {
+      state.error = null;
       state.isLoading = true;
     },
     registrationSuccessAction(state) {
@@ -27,6 +28,7 @@ const slice = createSlice({
     },
 
     loginRequestAction(state, action: PayloadAction<Login>) {
+      state.error = null;
       state.isLoading = true;
     },
     loginSuccessAction(state, action: PayloadAction<User>) {
@@ -40,6 +42,7 @@ const slice = createSlice({
     },
 
     logoutRequestAction(state, action: PayloadAction<Logout>) {
+      state.error = null;
       state.isLoading = true;
     },
     logoutSuccessAction(state) {

@@ -15,7 +15,7 @@ import {
 export const initialState: GeolocationListState = {
   sorting: Order.ASC,
   filters: [{ region_code: [] }],
-  geolocationsCopy: [],
+  geolocationsFilteringData: [],
   geolocations: {
     data: [],
     meta: {
@@ -79,6 +79,14 @@ const slice = createSlice({
       state.geolocations.data = state.geolocations.data.filter(
         (geolocation: Geolocation) => geolocation.uuid !== action.payload.uuid,
       );
+
+      if (state.isFiltering) {
+        state.geolocationsFilteringData =
+          state.geolocationsFilteringData.filter(
+            (geolocation: Geolocation) =>
+              geolocation.uuid !== action.payload.uuid,
+          );
+      }
     },
     removeGeolocationFailtureAction(state, action: PayloadAction<string>) {
       state.isLoading = false;
@@ -87,23 +95,24 @@ const slice = createSlice({
 
     sortingAction(state) {
       state.sorting = state.sorting === Order.ASC ? Order.DESC : Order.ASC;
-      state.geolocations.data = state.geolocations.data.reverse();
+      state.geolocations.data = [...state.geolocations.data].reverse();
     },
 
     filteringAction(state, action: PayloadAction<any>) {
       if (!state.isFiltering) {
         state.isFiltering = true;
 
-        state.geolocationsCopy = state.geolocations.data.filter(
+        state.geolocationsFilteringData = [...state.geolocations.data].filter(
           (geolocation: Geolocation) =>
             geolocation[action.payload.key] === action.payload.value,
         );
       } else {
-        state.geolocationsCopy = state.geolocations.data;
-        state.geolocationsCopy = state.geolocationsCopy.filter(
-          (geolocation: Geolocation) =>
-            geolocation[action.payload.key] === action.payload.value,
-        );
+        state.geolocationsFilteringData = [...state.geolocations.data];
+        state.geolocationsFilteringData =
+          state.geolocationsFilteringData.filter(
+            (geolocation: Geolocation) =>
+              geolocation[action.payload.key] === action.payload.value,
+          );
       }
     },
   },

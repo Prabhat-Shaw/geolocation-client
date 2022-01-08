@@ -7,8 +7,9 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { ORANGE, ORANGE_ACTIVE, ORANGE_FOCUS, WHITE } from 'styles/colors';
+import { RootState } from 'types';
 import { useAuthenticationSlice } from '../Authentication/slice';
-import { selectAuthentication } from '../Authentication/slice/selectors';
 import logo from './logo.png';
 
 export function Header() {
@@ -16,7 +17,9 @@ export function Header() {
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const { isLoading } = useSelector(selectAuthentication);
+  const isLoading = useSelector(
+    (store: RootState) => store.authentication?.isLoading,
+  );
 
   const onLogout = () => dispatch(actions.logoutRequestAction({ history }));
 
@@ -36,7 +39,7 @@ export function Header() {
 const StyledHeader = styled.header`
   width: 100%;
   z-index: 2;
-  background-color: #fff;
+  background-color: ${WHITE};
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -57,7 +60,7 @@ const Img = styled.img`
 export const Button = styled.button`
   align-items: center;
   background-clip: padding-box;
-  background-color: #fa6400;
+  background-color: ${ORANGE};
   border: 1px solid transparent;
   border-radius: 0.25rem;
   box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
@@ -85,7 +88,7 @@ export const Button = styled.button`
   &:hover,
   &:focus {
     cursor: pointer;
-    background-color: #fb8332;
+    background-color: ${ORANGE_FOCUS};
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   }
 
@@ -94,7 +97,7 @@ export const Button = styled.button`
   }
 
   &:active {
-    background-color: #c85000;
+    background-color: ${ORANGE_ACTIVE};
     box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
     transform: translateY(0);
   }

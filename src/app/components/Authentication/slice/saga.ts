@@ -26,7 +26,7 @@ function* login({
     console.log({ error: error });
 
     yield put(
-      actions.loginFailtureAction(error?.response?.statusText || error.message),
+      actions.loginFailtureAction(error?.body?.message || error.statusText),
     );
   }
 }
@@ -48,7 +48,7 @@ function* registration({
   } catch (error) {
     yield put(
       actions.registrationFailtureAction(
-        error?.response?.statusText || error.message,
+        error?.body?.message || error.statusText,
       ),
     );
   }
@@ -70,9 +70,7 @@ function* logout({
     history.push('/login');
   } catch (error) {
     yield put(
-      actions.logoutFailtureAction(
-        error?.response?.statusText || error.message,
-      ),
+      actions.logoutFailtureAction(error?.body?.message || error.statusText),
     );
   }
 }

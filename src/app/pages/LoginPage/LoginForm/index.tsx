@@ -3,8 +3,6 @@
  * LoginForm
  *
  */
-import { Button } from 'app/components/Authentication/components/Button';
-import { Footer } from 'app/components/Authentication/components/Footer';
 import {
   Form,
   FormAction,
@@ -15,11 +13,14 @@ import { Header } from 'app/components/Authentication/components/Header';
 import { Input } from 'app/components/Authentication/components/Input';
 import { useAuthenticationSlice } from 'app/components/Authentication/slice';
 import { selectAuthentication } from 'app/components/Authentication/slice/selectors';
+import { Button } from 'app/components/Button';
+import { Copyright } from 'app/components/Copyright';
 import * as React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { messages } from './messages';
 
 type Inputs = {
   emailAddress: string;
@@ -31,11 +32,10 @@ export function LoginForm() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>();
   const dispatch = useDispatch();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const history = useHistory();
 
   const onSubmit: SubmitHandler<Inputs> = data =>
@@ -52,7 +52,7 @@ export function LoginForm() {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Input
             errored={errors.emailAddress}
-            placeholder="Email address"
+            placeholder={t(...messages.emailAddress())}
             disabled={isLoading}
             {...register('emailAddress', { required: true })}
           />
@@ -60,7 +60,7 @@ export function LoginForm() {
           <Input
             errored={errors.password}
             disabled={isLoading}
-            placeholder="Password"
+            placeholder={t(...messages.password())}
             type="password"
             {...register('password', { required: true, minLength: 6 })}
           />
@@ -68,13 +68,16 @@ export function LoginForm() {
           <Button isLoading={isLoading} error={error} defaultText={'Log in'} />
 
           <FormAction>
-            You do not have an account?{' '}
-            <span onClick={onRedirectToRegistration}>Registration</span>.
+            {t(...messages.youDoNotHaveAnAccount())}{' '}
+            <span onClick={onRedirectToRegistration}>
+              {t(...messages.login())}
+            </span>
+            .
           </FormAction>
         </Form>
       </FormWrapper>
 
-      <Footer />
+      <Copyright />
     </FormContainer>
   );
 }

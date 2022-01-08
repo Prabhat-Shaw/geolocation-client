@@ -7,7 +7,7 @@ export interface GeolocationListState {
   geolocations: Pagination<Geolocation>;
   isLoading: boolean;
   isFiltering: boolean;
-  geolocationsCopy: any;
+  geolocationsFilteringData: Geolocation[];
   filters: any;
   sorting: Order;
   error?: string | null;

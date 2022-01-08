@@ -7,5 +7,8 @@ import { translations } from 'locales/translations';
 import { _t } from 'utils/messages';
 
 export const messages = {
-  // someThing: () => _t(translations.someThing,'default value'),
+  emailAddress: () => _t(translations.emailAddress),
+  password: () => _t(translations.password),
+  login: () => _t(translations.login),
+  alreadyHaveAnAccount: () => _t(translations.alreadyHaveAnAccount),
 };

@@ -6,37 +6,37 @@ export class ResponseError extends Error {
     this.response = response;
   }
 }
-/**
- * Parses the JSON returned by a network request
- *
- * @param  {object} response A response from a network request
- *
- * @return {object}          The parsed JSON from the request
- */
-function parseJSON(response: Response) {
-  if (response.status === 204 || response.status === 205) {
-    return null;
-  }
 
-  return response.json();
-}
-
-/**
- * Checks if a network request came back fine, and throws an error if not
- *
- * @param  {object} response   A response from a network request
- *
- * @return {object|undefined} Returns either the response, or throws an error
- */
-function checkStatus(response: Response) {
+const checkStatus = response => {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
 
-  const error = new ResponseError(response);
-  error.response = response;
+  return response.json().then(json => {
+    return Promise.reject({
+      status: response.status,
+      ok: false,
+      statusText: response.statusText,
+      body: json,
+    });
+  });
+};
+
+const parseJSON = response => {
+  if (response.status === 204 || response.status === 205) {
+    return null;
+  }
+  return response.json();
+};
+
+const handleError = error => {
+  error.response = {
+    status: 0,
+    statusText:
+      'Cannot connect. Please make sure you are connected to internet.',
+  };
   throw error;
-}
+};
 
 /**
  * Requests a URL, returning a promise
@@ -50,7 +50,11 @@ export async function request(
   url: string,
   options?: RequestInit,
 ): Promise<{} | { err: ResponseError }> {
-  const fetchResponse = await fetch(url, options);
-  const response = checkStatus(fetchResponse);
-  return parseJSON(response);
+  return fetch(url, options)
+    .catch(handleError) // handle network issues
+    .then(checkStatus)
+    .then(parseJSON)
+    .catch(error => {
+      throw error;
+    });
 }

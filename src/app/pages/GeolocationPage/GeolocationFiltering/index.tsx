@@ -3,14 +3,14 @@
  * GeolocationFiltering
  *
  */
-import * as React from 'react';
+import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGeolocationListSlice } from '../GeolocationList/slice';
 import { selectGeolocationList } from '../GeolocationList/slice/selectors';
 
 interface Props {}
 
-export function GeolocationFiltering(props: Props) {
+export const GeolocationFiltering = memo((props: Props) => {
   const { actions } = useGeolocationListSlice();
   const { filters } = useSelector(selectGeolocationList);
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export function GeolocationFiltering(props: Props) {
     dispatch(actions.filteringAction({ key, value }));
 
   return (
-    <div>
+    <>
       {filters.map((filter, index) => (
         <div key={index}>
           {filter.region_code && (
@@ -39,6 +39,6 @@ export function GeolocationFiltering(props: Props) {
           )}
         </div>
       ))}
-    </div>
+    </>
   );
-}
+});

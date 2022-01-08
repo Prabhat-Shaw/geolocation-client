@@ -29,6 +29,7 @@ export function Layout({ children }: Props) {
 
 const Main = styled.main`
   margin: 10px;
+  overflow-y: hidden;
 
   ${media.medium`
     max-width: calc(100% - 250px);

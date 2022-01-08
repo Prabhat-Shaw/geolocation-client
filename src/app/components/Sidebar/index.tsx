@@ -4,7 +4,6 @@
  *
  */
 
-import { GeolocationFiltering } from 'app/pages/GeolocationPage/GeolocationFiltering';
 import styled from 'styled-components/macro';
 import { media } from 'styles/media';
 import { Footer } from '../Footer';
@@ -21,7 +20,7 @@ export function Sidebar(props: Props) {
         <div>
           <StyledSidebarItem>Filters</StyledSidebarItem>
 
-          <GeolocationFiltering />
+          {/* <GeolocationFiltering /> */}
         </div>
       </div>
 

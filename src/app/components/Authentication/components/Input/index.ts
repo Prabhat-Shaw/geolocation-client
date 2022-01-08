@@ -5,6 +5,7 @@
  */
 import { FieldError } from 'react-hook-form';
 import styled from 'styled-components/macro';
+import { RED, SILVER } from 'styles/colors';
 
 interface StyledButtonProps {
   errored?: FieldError;
@@ -15,7 +16,8 @@ export const Input = styled.input<StyledButtonProps>`
   display: block;
   width: 100%;
   border-radius: 0.25rem;
-  border: ${({ errored }) => (errored ? '1px solid red' : '1px solid silver')};
+  border: ${({ errored }) =>
+    errored ? `1px solid ${RED}` : `1px solid ${SILVER}`};
 
   &:not(:last-of-type) {
     margin-bottom: 10px;

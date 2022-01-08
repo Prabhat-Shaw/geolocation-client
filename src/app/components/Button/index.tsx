@@ -8,20 +8,21 @@ import * as React from 'react';
 import styled from 'styled-components/macro';
 
 interface Props {
-  isLoading: boolean;
-  error: string | null;
+  isLoading?: boolean;
+  error?: string | null;
   defaultText?: string;
+  small?: boolean;
 }
 
-export function Button({ isLoading, error, defaultText }: Props) {
+export function Button({ isLoading, error, defaultText, small }: Props) {
   return (
-    <StyledButton disabled={isLoading} type="submit">
+    <StyledButton small={small} disabled={isLoading} type="submit">
       {isLoading ? <LoadingIndicator small /> : error ? error : defaultText}
     </StyledButton>
   );
 }
 
-export const StyledButton = styled.button`
+export const StyledButton = styled.button<Props>`
   align-items: center;
   background-clip: padding-box;
   background-color: #fa6400;
@@ -39,6 +40,7 @@ export const StyledButton = styled.button`
   justify-content: center;
   line-height: 1.25;
   margin: 10px 0;
+  font-size: ${p => (p.small ? '10px' : '16px')}
   min-height: 3rem;
   padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
   position: relative;

@@ -44,7 +44,6 @@ export function App() {
           </Layout>
         </AuthenticationGuard>
 
-        {/* todo */}
         <Route component={NotFoundPage} />
       </Switch>
 

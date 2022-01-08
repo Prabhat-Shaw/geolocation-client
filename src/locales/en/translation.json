@@ -1,3 +1,10 @@
 {
-  "title": "welcome"
+  "emailAddress": "Email address",
+  "password": "Password",
+  "youDoNotHaveAnAccount": "You do not have an account?",
+  "alreadyHaveAnAccount": "Already have an account?",
+  "registration": "Registration",
+  "register": "Register an account",
+  "login": "Log in",
+  "logout": "Logout"
 }

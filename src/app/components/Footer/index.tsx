@@ -5,27 +5,18 @@
  */
 import * as React from 'react';
 import styled from 'styled-components/macro';
+import { Copyright } from '../Copyright';
 
-interface Props {}
-
-export function Footer(props: Props) {
+export function Footer() {
   return (
     <StyledFooter>
-      Copyright &copy; {new Date().getFullYear()}{' '}
-      <a
-        href="https://pietrzakadrian.com"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        Adrian Pietrzak
-      </a>
+      <Copyright />
     </StyledFooter>
   );
 }
 
 const StyledFooter = styled.footer`
   text-align: right;
-  padding: 10px;
   color: grey;
   font-size: 13px;
   position: absolute;
