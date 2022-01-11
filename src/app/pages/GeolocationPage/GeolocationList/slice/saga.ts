@@ -20,11 +20,9 @@ function* getGeolocations({
 
     yield put(actions.getGeolocationsSuccessAction(geolocations));
   } catch (error) {
-    yield put(
-      actions.getGeolocationsFailtureAction(error.response?.statusText),
-    );
+    yield put(actions.getGeolocationsFailtureAction(error.body?.message));
 
-    if (error.response?.status === 401) {
+    if (error.status === 401) {
       history.push('/login');
     }
   }
@@ -44,11 +42,9 @@ function* removeGeolocation({
 
     yield put(actions.removeGeolocationSuccessAction(geolocation));
   } catch (error) {
-    yield put(
-      actions.removeGeolocationFailtureAction(error.response?.statusText),
-    );
+    yield put(actions.removeGeolocationFailtureAction(error.body?.message));
 
-    if (error.response?.status === 401) {
+    if (error.status === 401) {
       history.push('/login');
     }
   }

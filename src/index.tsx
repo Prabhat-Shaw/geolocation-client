@@ -13,7 +13,6 @@ import 'react-app-polyfill/stable';
 import * as ReactDOM from 'react-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
 import reportWebVitals from 'reportWebVitals';
 // Use consistent styling
 import 'sanitize.css/sanitize.css';
@@ -21,18 +20,16 @@ import { configureAppStore } from 'store/configureStore';
 // Initialize languages
 import './locales/i18n';
 
-const { store, persistor } = configureAppStore();
+const { store } = configureAppStore();
 const MOUNT_NODE = document.getElementById('root') as HTMLElement;
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <HelmetProvider>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      </HelmetProvider>
-    </PersistGate>
+    <HelmetProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </HelmetProvider>
   </Provider>,
   MOUNT_NODE,
 );

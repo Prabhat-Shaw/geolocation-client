@@ -9,6 +9,6 @@ import { _t } from 'utils/messages';
 export const messages = {
   emailAddress: () => _t(translations.emailAddress),
   password: () => _t(translations.password),
-  login: () => _t(translations.login),
+  registrarion: () => _t(translations.registration),
   youDoNotHaveAnAccount: () => _t(translations.youDoNotHaveAnAccount),
 };

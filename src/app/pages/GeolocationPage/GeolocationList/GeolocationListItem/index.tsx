@@ -4,6 +4,7 @@
  *
  */
 import { selectAuthentication } from 'app/components/Authentication/slice/selectors';
+import { StyledButton } from 'app/components/Button';
 import React, { useState } from 'react';
 import useCollapse from 'react-collapsed';
 import { useDispatch, useSelector } from 'react-redux';
@@ -34,7 +35,7 @@ export function GeolocationListItem({ geolocation }: Props) {
           disabled={user?.uuid !== geolocation.user.uuid}
           onClick={() => onDeleteItem(geolocation.uuid)}
         >
-          delete
+          Delete
         </Button>
       </CloseButtonWrapper>
 
@@ -85,6 +86,10 @@ export function GeolocationListItem({ geolocation }: Props) {
   );
 }
 
+const Button = styled(StyledButton)`
+  width: auto;
+`;
+
 const Div = styled.div`
   border: 0.5px solid rgb(0 0 0 / 20%);
   padding: 15px;
@@ -105,55 +110,7 @@ const DivContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 70%;
-`;
-
-export const Button = styled.button`
-  position: absolute;
-  right: 10px;
-  top: 0;
-  align-items: center;
-  background-clip: padding-box;
-  background-color: #fa6400;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
-  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-flex;
-  font-family: system-ui, -apple-system, system-ui, 'Helvetica Neue', Helvetica,
-    Arial, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  justify-content: center;
-  line-height: 1.25;
-  margin: 10px 0;
-  min-height: 3rem;
-  padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
-  text-decoration: none;
-  transition: all 250ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: baseline;
-
-  &:hover,
-  &:focus {
-    cursor: pointer;
-    background-color: #fb8332;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-  }
-
-  &:hover {
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    background-color: #c85000;
-    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
-    transform: translateY(0);
-  }
+  width: calc(100% - 20px);
 `;
 
 const CloseButtonWrapper = styled.div`

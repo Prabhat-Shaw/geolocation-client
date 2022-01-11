@@ -9,5 +9,6 @@ interface Meta {
 
 export interface Pagination<T> {
   data: T[];
+  dataFilter?: T[];
   meta: Meta;
 }

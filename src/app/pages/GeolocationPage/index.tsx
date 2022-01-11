@@ -4,13 +4,29 @@
  *
  */
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import styled from 'styled-components/macro';
+import { GeolocationFilter } from './GeolocationFilter';
 import { GeolocationList } from './GeolocationList';
+import { GeolocationSort } from './GeolocationSort';
 
-interface Props {}
+export function GeolocationPage() {
+  return (
+    <>
+      <Div>
+        <GeolocationSort />
 
-export function GeolocationPage(props: Props) {
-  const { t, i18n } = useTranslation();
+        <GeolocationFilter />
+      </Div>
 
-  return <GeolocationList />;
+      <GeolocationList />
+    </>
+  );
 }
+
+const Div = styled.div`
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+`;

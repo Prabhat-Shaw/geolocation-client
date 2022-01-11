@@ -10,6 +10,7 @@ export interface AuthenticationState {
 }
 
 export interface Registration {
+  history: History;
   emailAddress: string;
   password: string;
 }

@@ -1,7 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { User } from 'types/User';
 import { createSlice } from 'utils/@reduxjs/toolkit';
-import { useInjectReducer } from 'utils/redux-injectors';
 import { AuthenticationState, Login, Logout, Registration } from './types';
 
 export const initialState: AuthenticationState = {
@@ -63,8 +62,6 @@ export const {
 } = slice;
 
 export const useAuthenticationSlice = () => {
-  useInjectReducer({ key: slice.name, reducer: slice.reducer });
-
   return { actions: slice.actions };
 };
 

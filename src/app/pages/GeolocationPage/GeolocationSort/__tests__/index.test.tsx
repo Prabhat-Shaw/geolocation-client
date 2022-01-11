@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-import { GeolocationSorting } from '..';
+import { GeolocationSort } from '..';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => {
@@ -14,9 +14,9 @@ jest.mock('react-i18next', () => ({
   },
 }));
 
-describe('<GeolocationSorting  />', () => {
+describe('<GeolocationSort  />', () => {
   it('should match snapshot', () => {
-    const loadingIndicator = render(<GeolocationSorting />);
+    const loadingIndicator = render(<GeolocationSort />);
     expect(loadingIndicator.container.firstChild).toMatchSnapshot();
   });
 });

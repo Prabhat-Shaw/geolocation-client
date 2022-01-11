@@ -4,6 +4,7 @@
  *
  */
 import styled from 'styled-components/macro';
+import { BLACK } from 'styles/colors';
 
 export const Form = styled.form`
   max-width: 330px;
@@ -41,7 +42,8 @@ export const FormAction = styled.div`
   margin: 10px 0 0;
 
   span {
-    color: grey;
+    color: ${BLACK};
+    font-weight: bold;
 
     &:hover {
       cursor: pointer;

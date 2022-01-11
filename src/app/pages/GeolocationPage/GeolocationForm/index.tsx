@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { ORANGE, ORANGE_ACTIVE, ORANGE_FOCUS, WHITE } from 'styles/colors';
 import { useGeolocationFormSlice } from './slice';
 import { selectGeolocationForm } from './slice/selectors';
 
@@ -40,8 +41,6 @@ export function GeolocationForm(props: Props) {
 
   return (
     <FormWrapper>
-      <div>Add new ip</div>
-
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           placeholder="Enter ip address"
@@ -74,12 +73,12 @@ const FormWrapper = styled.div`
 export const Button = styled.button`
   align-items: center;
   background-clip: padding-box;
-  background-color: #fa6400;
+  background-color: ${ORANGE};
   border: 1px solid transparent;
   border-radius: 0.25rem;
   box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
   box-sizing: border-box;
-  color: #fff;
+  color: ${WHITE};
   cursor: pointer;
   display: inline-flex;
   font-family: system-ui, -apple-system, system-ui, 'Helvetica Neue', Helvetica,
@@ -103,7 +102,7 @@ export const Button = styled.button`
   &:hover,
   &:focus {
     cursor: pointer;
-    background-color: #fb8332;
+    background-color: ${ORANGE_FOCUS};
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   }
 
@@ -112,7 +111,7 @@ export const Button = styled.button`
   }
 
   &:active {
-    background-color: #c85000;
+    background-color: ${ORANGE_ACTIVE};
     box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
     transform: translateY(0);
   }

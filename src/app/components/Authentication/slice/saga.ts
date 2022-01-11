@@ -23,16 +23,12 @@ function* login({
     yield put(actions.loginSuccessAction(user));
     history.push('/');
   } catch (error) {
-    console.log({ error: error });
-
-    yield put(
-      actions.loginFailtureAction(error?.body?.message || error.statusText),
-    );
+    yield put(actions.loginFailtureAction(error?.body?.message));
   }
 }
 
 function* registration({
-  payload: { emailAddress: email_address, password },
+  payload: { emailAddress: email_address, password, history },
 }: ReturnType<typeof actions.registrationRequestAction>) {
   const requestURL = `${API_URL}/Authentication/registration`;
   const requestParameters = {
@@ -45,12 +41,9 @@ function* registration({
     yield call(request, requestURL, requestParameters);
 
     yield put(actions.registrationSuccessAction());
+    history.push('/login');
   } catch (error) {
-    yield put(
-      actions.registrationFailtureAction(
-        error?.body?.message || error.statusText,
-      ),
-    );
+    yield put(actions.registrationFailtureAction(error?.body?.message));
   }
 }
 
@@ -69,9 +62,7 @@ function* logout({
     yield put(actions.logoutSuccessAction());
     history.push('/login');
   } catch (error) {
-    yield put(
-      actions.logoutFailtureAction(error?.body?.message || error.statusText),
-    );
+    yield put(actions.logoutFailtureAction(error?.body?.message));
   }
 }
 

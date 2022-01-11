@@ -5,23 +5,15 @@
  */
 
 import styled from 'styled-components/macro';
+import { ORANGE_ACTIVE, SILVER } from 'styles/colors';
 import { media } from 'styles/media';
 import { Footer } from '../Footer';
-import { StyledSidebarItem } from './SidebarItem';
 
-interface Props {}
-
-export function Sidebar(props: Props) {
+export function Sidebar() {
   return (
     <Div>
       <div>
-        <StyledSidebarItem>Panel</StyledSidebarItem>
-
-        <div>
-          <StyledSidebarItem>Filters</StyledSidebarItem>
-
-          {/* <GeolocationFiltering /> */}
-        </div>
+        <Item>Panel</Item>
       </div>
 
       <Footer />
@@ -32,7 +24,7 @@ export function Sidebar(props: Props) {
 const Div = styled.div`
   display: none;
   width: 250px;
-  border: 1px solid silver;
+  border: 1px solid ${SILVER};
   position: fixed;
   height: 100vh;
   padding-top: 80px;
@@ -40,4 +32,15 @@ const Div = styled.div`
   ${media.medium`
     display: block;
   `}
+`;
+
+const Item = styled.div`
+  border-left: 2px solid ${ORANGE_ACTIVE};
+  padding: 10px 20px;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: ${SILVER};
+    cursor: pointer;
+  }
 `;

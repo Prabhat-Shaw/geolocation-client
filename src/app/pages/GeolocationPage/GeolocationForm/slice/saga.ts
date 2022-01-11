@@ -4,7 +4,7 @@ import { request } from 'utils/request';
 import { geolocationFormActions as actions } from '.';
 
 function* createGeolocation({
-  payload: { ipAddress: ip_address },
+  payload: { ipAddress: ip_address, history },
 }: ReturnType<typeof actions.createGeolocationRequestAction>) {
   const requestURL = `${API_URL}/Geolocation`;
   const requestParameters = {
@@ -21,9 +21,11 @@ function* createGeolocation({
 
     yield put(actions.createGeolocationSuccessAction(geolocation));
   } catch (error) {
-    yield put(
-      actions.createGeolocationFailtureAction(error.response?.statusText),
-    );
+    yield put(actions.createGeolocationFailtureAction(error.body?.message));
+
+    if (error.status === 401) {
+      history.push('/login');
+    }
   }
 }
 

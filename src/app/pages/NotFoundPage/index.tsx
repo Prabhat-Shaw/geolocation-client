@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import styled from 'styled-components/macro';
+import { BLACK } from 'styles/colors';
 import { P } from './P';
 
 export function NotFoundPage() {
@@ -36,7 +37,7 @@ const Wrapper = styled.div`
 const Title = styled.div`
   margin-top: -8vh;
   font-weight: bold;
-  color: black;
+  color: ${BLACK};
   font-size: 3.375rem;
 
   span {

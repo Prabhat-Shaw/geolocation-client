@@ -5,6 +5,7 @@
  */
 import * as React from 'react';
 import styled from 'styled-components/macro';
+import { BLACK } from 'styles/colors';
 import { Copyright } from '../Copyright';
 
 export function Footer() {
@@ -17,7 +18,7 @@ export function Footer() {
 
 const StyledFooter = styled.footer`
   text-align: right;
-  color: grey;
+  color: ${BLACK};
   font-size: 13px;
   position: absolute;
   bottom: 0;
@@ -30,7 +31,7 @@ const StyledFooter = styled.footer`
 
   a {
     text-decoration: none;
-    color: grey;
+    color: ${BLACK};
     font-weight: bold;
   }
 `;

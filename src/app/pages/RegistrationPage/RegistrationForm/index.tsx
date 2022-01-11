@@ -14,7 +14,7 @@ import { Input } from 'app/components/Authentication/components/Input';
 import { useAuthenticationSlice } from 'app/components/Authentication/slice';
 import { selectAuthentication } from 'app/components/Authentication/slice/selectors';
 import { Button } from 'app/components/Button';
-import { Footer } from 'app/components/Footer';
+import { Copyright } from 'app/components/Copyright';
 import * as React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -35,11 +35,11 @@ export function RegistrationForm() {
     formState: { errors },
   } = useForm<Inputs>();
   const dispatch = useDispatch();
-  const { t } = useTranslation();
   const history = useHistory();
+  const { t } = useTranslation();
 
   const onSubmit: SubmitHandler<Inputs> = data =>
-    dispatch(actions.registrationRequestAction(data));
+    dispatch(actions.registrationRequestAction({ ...data, history }));
   const { isLoading, error } = useSelector(selectAuthentication);
 
   const onRedirectToLogin = () => history.push('/login');
@@ -81,7 +81,7 @@ export function RegistrationForm() {
         </Form>
       </FormWrapper>
 
-      <Footer />
+      <Copyright />
     </FormContainer>
   );
 }

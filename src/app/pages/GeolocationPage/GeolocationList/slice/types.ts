@@ -5,10 +5,8 @@ import { Pagination } from 'types/Pagination';
 /* --- STATE --- */
 export interface GeolocationListState {
   geolocations: Pagination<Geolocation>;
-  isLoading: boolean;
-  isFiltering: boolean;
-  geolocationsFilteringData: Geolocation[];
   filters: any;
+  isLoading: boolean;
   sorting: Order;
   error?: string | null;
 }

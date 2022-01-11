@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { Geolocation } from 'types/Geolocation';
+import { GeolocationForm } from '../GeolocationForm';
 import { GeolocationListItem } from './GeolocationListItem';
 import { useGeolocationListSlice } from './slice';
 import { selectGeolocationList } from './slice/selectors';
@@ -21,8 +22,9 @@ export function GeolocationList(props: Props) {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const history = useHistory();
-  const { geolocations, isLoading, sorting, geolocationsFilteringData } =
-    useSelector(selectGeolocationList);
+  const { geolocations, isLoading, sorting } = useSelector(
+    selectGeolocationList,
+  );
 
   const useEffectOnMount = (effect: React.EffectCallback) => {
     React.useEffect(effect, []);
@@ -55,9 +57,12 @@ export function GeolocationList(props: Props) {
 
   return (
     <Div onScroll={handleScroll}>
-      {/* <GeolocationForm /> */}
+      <GeolocationForm />
 
-      {geolocations.data.map((geolocation: Geolocation) => (
+      {(geolocations.dataFilter?.length
+        ? geolocations.dataFilter
+        : geolocations.data
+      ).map((geolocation: Geolocation) => (
         <GeolocationListItem key={geolocation.uuid} geolocation={geolocation} />
       ))}
 
@@ -73,7 +78,7 @@ export function GeolocationList(props: Props) {
 const Div = styled.div`
   overflow-y: scroll;
   max-height: 1000px;
-  padding: 50px 0;
+  padding: 10px 0;
 `;
 
 const LoadingIndicatorWrapper = styled.div`

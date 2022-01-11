@@ -70,7 +70,7 @@ export function LoginForm() {
           <FormAction>
             {t(...messages.youDoNotHaveAnAccount())}{' '}
             <span onClick={onRedirectToRegistration}>
-              {t(...messages.login())}
+              {t(...messages.registrarion())}
             </span>
             .
           </FormAction>

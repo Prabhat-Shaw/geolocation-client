@@ -15,9 +15,9 @@ import {
 export const initialState: GeolocationListState = {
   sorting: Order.ASC,
   filters: [{ region_code: [] }],
-  geolocationsFilteringData: [],
   geolocations: {
     data: [],
+    dataFilter: [],
     meta: {
       page: 0,
       take: 0,
@@ -28,7 +28,6 @@ export const initialState: GeolocationListState = {
     },
   },
   isLoading: false,
-  isFiltering: false,
   error: null,
 };
 
@@ -53,15 +52,16 @@ const slice = createSlice({
       ];
       state.geolocations.meta = action.payload.meta;
 
-      const regionFilter = state.filters.find(
+      const regionFilterElement = state.filters.find(
         element => 'region_code' in element,
-      ).region_code;
+      );
+      const regions = new Set(regionFilterElement.region_code);
 
       for (const { region_code } of state.geolocations.data) {
-        if (!regionFilter.includes(region_code)) {
-          regionFilter.push(region_code);
-        }
+        regions.add(region_code);
       }
+
+      regionFilterElement.region_code = [...regions];
     },
     getGeolocationsFailtureAction(state, action: PayloadAction<string>) {
       state.isLoading = false;
@@ -80,40 +80,30 @@ const slice = createSlice({
         (geolocation: Geolocation) => geolocation.uuid !== action.payload.uuid,
       );
 
-      if (state.isFiltering) {
-        state.geolocationsFilteringData =
-          state.geolocationsFilteringData.filter(
-            (geolocation: Geolocation) =>
-              geolocation.uuid !== action.payload.uuid,
-          );
-      }
+      state.geolocations.dataFilter = state.geolocations.dataFilter?.filter(
+        (geolocation: Geolocation) => geolocation.uuid !== action.payload.uuid,
+      );
     },
     removeGeolocationFailtureAction(state, action: PayloadAction<string>) {
       state.isLoading = false;
       state.error = action.payload;
     },
 
-    sortingAction(state) {
+    sortAction(state) {
       state.sorting = state.sorting === Order.ASC ? Order.DESC : Order.ASC;
-      state.geolocations.data = [...state.geolocations.data].reverse();
+      state.geolocations.data = state.geolocations.data.reverse();
+      state.geolocations.dataFilter = state.geolocations.dataFilter?.reverse();
     },
 
-    filteringAction(state, action: PayloadAction<any>) {
-      if (!state.isFiltering) {
-        state.isFiltering = true;
+    filterAction(state, action: PayloadAction<any>) {
+      state.geolocations.dataFilter = [...state.geolocations.data].filter(
+        (geolocation: Geolocation) =>
+          geolocation[action.payload.key] === action.payload.value,
+      );
+    },
 
-        state.geolocationsFilteringData = [...state.geolocations.data].filter(
-          (geolocation: Geolocation) =>
-            geolocation[action.payload.key] === action.payload.value,
-        );
-      } else {
-        state.geolocationsFilteringData = [...state.geolocations.data];
-        state.geolocationsFilteringData =
-          state.geolocationsFilteringData.filter(
-            (geolocation: Geolocation) =>
-              geolocation[action.payload.key] === action.payload.value,
-          );
-      }
+    resetFilterAction(state) {
+      state.geolocations.dataFilter = [];
     },
   },
   extraReducers: {
@@ -125,6 +115,17 @@ const slice = createSlice({
         state.sorting === Order.ASC
           ? [...state.geolocations.data, action.payload]
           : [action.payload, ...state.geolocations.data];
+
+      const regionFilterElement = state.filters.find(
+        element => 'region_code' in element,
+      );
+      const regions = new Set(regionFilterElement.region_code);
+
+      for (const { region_code } of state.geolocations.data) {
+        regions.add(region_code);
+      }
+
+      regionFilterElement.region_code = [...regions];
     },
   },
 });
