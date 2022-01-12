@@ -7,7 +7,6 @@ import { Input } from 'app/components/Authentication/components/Input';
 import { LoadingIndicator } from 'app/components/LoadingIndicator';
 import * as React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
@@ -15,13 +14,11 @@ import { ORANGE, ORANGE_ACTIVE, ORANGE_FOCUS, WHITE } from 'styles/colors';
 import { useGeolocationFormSlice } from './slice';
 import { selectGeolocationForm } from './slice/selectors';
 
-interface Props {}
-
 type Inputs = {
   ipAddress: string;
 };
 
-export function GeolocationForm(props: Props) {
+export function GeolocationForm() {
   const dispatch = useDispatch();
   const { actions } = useGeolocationFormSlice();
 
@@ -36,8 +33,6 @@ export function GeolocationForm(props: Props) {
     dispatch(actions.createGeolocationRequestAction({ ...data, history }));
 
   const { isLoading, error } = useSelector(selectGeolocationForm);
-
-  const { t, i18n } = useTranslation();
 
   return (
     <FormWrapper>

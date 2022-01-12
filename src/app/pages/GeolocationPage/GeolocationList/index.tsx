@@ -5,7 +5,6 @@
  */
 import { LoadingIndicator } from 'app/components/LoadingIndicator';
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
@@ -20,7 +19,6 @@ interface Props {}
 export function GeolocationList(props: Props) {
   const { actions } = useGeolocationListSlice();
   const dispatch = useDispatch();
-  const { t, i18n } = useTranslation();
   const history = useHistory();
   const { geolocations, isLoading, sorting } = useSelector(
     selectGeolocationList,
