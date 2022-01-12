@@ -2,7 +2,7 @@
 
 ## Technology stack
 
-- TypeScript, React, React Router, Redux, Redux Toolkit, Reselect, Redux-Saga, Styled Components, Jest, Styled Components
+- TypeScript, React, React Router, Redux, Redux Toolkit, Reselect, Redux-Saga and Styled Components
 
 ## Application specification
 
