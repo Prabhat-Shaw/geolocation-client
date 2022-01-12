@@ -25,6 +25,7 @@ export function GeolocationList(props: Props) {
   );
 
   const useEffectOnMount = (effect: React.EffectCallback) => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     React.useEffect(effect, []);
   };
 
