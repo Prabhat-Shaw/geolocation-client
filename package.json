@@ -9,8 +9,8 @@
     "node": ">=14.15.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "start:prod": "yarn run build && serve -s build",
     "test:generators": "ts-node --project=./internals/ts-node.tsconfig.json ./internals/testing/generators/test-generators.ts",
@@ -62,6 +62,7 @@
     "sanitize.css": "12.0.1",
     "styled-components": "5.3.0",
     "web-vitals": "2.1.0"
+    "react-scripts": "4.0.3"
   },
   "devDependencies": {
     "@commitlint/cli": "13.1.0",
@@ -96,7 +97,7 @@
     "node-plop": "0.26.2",
     "plop": "2.7.4",
     "prettier": "2.3.2",
-    "react-scripts": "4.0.3",
+
     "react-test-renderer": "17.0.2",
     "replace-in-file": "6.2.0",
     "rimraf": "3.0.2",
