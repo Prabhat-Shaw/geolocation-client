@@ -3,11 +3,10 @@
  * GeolocationListItem
  *
  */
-import { selectAuthentication } from 'app/components/Authentication/slice/selectors';
 import { StyledButton } from 'app/components/Button';
 import React, { useState } from 'react';
 import useCollapse from 'react-collapsed';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { Geolocation } from 'types/Geolocation';
@@ -23,7 +22,6 @@ export function GeolocationListItem({ geolocation }: Props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { actions } = useGeolocationListSlice();
-  const { user } = useSelector(selectAuthentication);
 
   const onDeleteItem = (uuid: string) =>
     dispatch(actions.removeGeolocationRequestAction({ uuid, history }));
@@ -31,12 +29,7 @@ export function GeolocationListItem({ geolocation }: Props) {
   return (
     <Div>
       <CloseButtonWrapper>
-        <Button
-          disabled={user?.uuid !== geolocation.user.uuid}
-          onClick={() => onDeleteItem(geolocation.uuid)}
-        >
-          Delete
-        </Button>
+        <Button onClick={() => onDeleteItem(geolocation.uuid)}>Delete</Button>
       </CloseButtonWrapper>
 
       <DivContainer
