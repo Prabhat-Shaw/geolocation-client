@@ -14,9 +14,7 @@ import { GeolocationListItem } from './GeolocationListItem';
 import { useGeolocationListSlice } from './slice';
 import { selectGeolocationList } from './slice/selectors';
 
-interface Props {}
-
-export function GeolocationList(props: Props) {
+export function GeolocationList() {
   const { actions } = useGeolocationListSlice();
   const dispatch = useDispatch();
   const history = useHistory();
